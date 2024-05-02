@@ -25,6 +25,12 @@ public class CircleManager : MonoBehaviour
     int _life;
     public event Action<int> OnLifeChange;
 
+    int _level = 1;
+    public event Action<int> OnLevelChange;
+
+    float _timeLimit = 20f; // 초기 제한 시간 설정
+    float _timeRemaining;   // 남은 시간
+
     void Awake()
     {
         Instance = this;
@@ -32,25 +38,51 @@ public class CircleManager : MonoBehaviour
         _gameOverPanel.SetActive(false);
         _score = 0;
         _life = 3;
+        _timeRemaining = _timeLimit;
 
-        // 처음에 5개의 오브젝트를 큐에 추가
-        _circleQueue.Enqueue(Instantiate(_circles[0]));
-        _circleQueue.Enqueue(Instantiate(_circles[1]));
-        _circleQueue.Enqueue(Instantiate(_circles[1]));
-        _circleQueue.Enqueue(Instantiate(_circles[0]));
-        _circleQueue.Enqueue(Instantiate(_circles[0]));
+        // // 처음에 5개의 오브젝트를 큐에 추가
+        // _circleQueue.Enqueue(Instantiate(_circles[0]));
+        // _circleQueue.Enqueue(Instantiate(_circles[1]));
+        // _circleQueue.Enqueue(Instantiate(_circles[1]));
+        // _circleQueue.Enqueue(Instantiate(_circles[0]));
+        // _circleQueue.Enqueue(Instantiate(_circles[0]));
+
+        // 초기 원소 추가
+        AddInitialCircles();
     }
 
     void Start()
     {
         MovePosition();
         OnScoreChange?.Invoke(_score);
+        OnLevelChange?.Invoke(_level); // 초기 레벨 알림
+    }
+
+    void Update()
+    {
+        _timeRemaining -= Time.deltaTime;
+        UIManager.Instance.UpdateTimer(_timeRemaining / _timeLimit);
+        
+        if (_timeRemaining <= 0)
+        {
+            GameOver();
+        }
+
+    }
+
+    void AddInitialCircles()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject newCircle = Instantiate(_circles[UnityEngine.Random.Range(0, _level * 2)]);
+            _circleQueue.Enqueue(newCircle);
+        }
     }
 
     void AddData()
     {
         // 새로운 원소를 랜덤으로 큐에 추가
-        GameObject newCircle = Instantiate(_circles[UnityEngine.Random.Range(0, _circles.Length)]);
+        GameObject newCircle = Instantiate(_circles[UnityEngine.Random.Range(0, _level * 2)]);
         _circleQueue.Enqueue(newCircle);
     }
 
@@ -66,7 +98,7 @@ public class CircleManager : MonoBehaviour
 
     public void OnClickLeftButton()
     {
-        if (_circleQueue.Peek().CompareTag("Red"))
+        if (_circleQueue.Peek().CompareTag("Left"))
         {
             RemoveData();
             AddData();
@@ -81,7 +113,7 @@ public class CircleManager : MonoBehaviour
 
     public void OnClickRightButton()
     {
-        if (_circleQueue.Peek().CompareTag("Blue"))
+        if (_circleQueue.Peek().CompareTag("Right"))
         {
             RemoveData();
             AddData();
@@ -108,6 +140,7 @@ public class CircleManager : MonoBehaviour
     public void AddScore()
     {
         _score++;
+        UpdateLevel();
         OnScoreChange?.Invoke(_score);
     }
 
@@ -119,7 +152,7 @@ public class CircleManager : MonoBehaviour
         {
             OnLifeChange?.Invoke(_life);
             // 게임오버
-            _gameOverPanel.SetActive(true);
+            GameOver();
         }
         else
         {
@@ -127,5 +160,44 @@ public class CircleManager : MonoBehaviour
         }
     }
 
-    // 시간 제한
+    void UpdateLevel()
+    {
+        int previousLevel = _level;
+        if (_score < 10)
+            _level = 1;
+        else if (_score < 30)
+            _level = 2;
+        else
+            _level = 3;
+
+        if (_level != previousLevel)
+        {
+            _timeLimit = GetLevelTimeLimit(_level);
+            _timeRemaining = _timeLimit;  // Reset timer with new level's time limit
+            OnLevelChange?.Invoke(_level);
+        }
+    }
+
+    float GetLevelTimeLimit(int level)
+    {
+        switch (level)
+        {
+            case 1: return 10f;
+            case 2: return 15f;
+            case 3: return 20f;
+            default: return 10f;
+        }
+    }
+
+    void GameOver()
+    {
+        _gameOverPanel.SetActive(true);
+        int finalScore = CalculateFinalScore();
+        UIManager.Instance.ShowFinalScore(finalScore);
+    }
+
+    int CalculateFinalScore()
+    {
+        return _score * _level;
+    }
 }

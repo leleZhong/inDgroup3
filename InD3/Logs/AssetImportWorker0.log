@@ -15,11 +15,11 @@ D:/Unity/inDgroup3/InD3
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-52273
+58287
 Successfully changed project path to: D:/Unity/inDgroup3/InD3
 D:/Unity/inDgroup3/InD3
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 40.40 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 126.91 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.38f1 (8f5fde82e2dc)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.38f1/Editor/Data/Resources/UnitySubsystems
@@ -35,92 +35,92 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.38f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.38f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.38f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56996
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56536
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.38f1/Editor/Data/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.38f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.002120 seconds.
+Registered in 0.007086 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for OSXStandalone target not found
-Refreshing native plugins compatible for Editor in 41.61 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 119.24 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.545 seconds
+- Completed reload, in  1.634 seconds
 Domain Reload Profiling:
-	ReloadAssembly (545ms)
-		BeginReloadAssembly (64ms)
+	ReloadAssembly (1635ms)
+		BeginReloadAssembly (186ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (417ms)
-			LoadAssemblies (62ms)
+			CreateAndSetChildDomain (2ms)
+		EndReloadAssembly (1256ms)
+			LoadAssemblies (181ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (137ms)
+			SetupTypeCache (382ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (24ms)
-			SetupLoadedEditorAssemblies (163ms)
+			RebuildScriptCaches (82ms)
+			SetupLoadedEditorAssemblies (486ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (5ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (42ms)
-				BeforeProcessingInitializeOnLoad (25ms)
-				ProcessInitializeOnLoadAttributes (66ms)
-				ProcessInitializeOnLoadMethodAttributes (25ms)
+				InitializePlatformSupportModulesInManaged (20ms)
+				SetLoadedEditorAssemblies (2ms)
+				RefreshPlugins (119ms)
+				BeforeProcessingInitializeOnLoad (44ms)
+				ProcessInitializeOnLoadAttributes (223ms)
+				ProcessInitializeOnLoadMethodAttributes (77ms)
 				AfterProcessingInitializeOnLoad (0ms)
-				EditorAssembliesLoaded (0ms)
+				EditorAssembliesLoaded (1ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.002297 seconds.
+Registered in 0.007870 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for OSXStandalone target not found
-Refreshing native plugins compatible for Editor in 40.79 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 137.11 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.060 seconds
+- Completed reload, in  3.057 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1061ms)
-		BeginReloadAssembly (149ms)
+	ReloadAssembly (3059ms)
+		BeginReloadAssembly (469ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
+			DisableScriptedObjects (8ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (20ms)
-		EndReloadAssembly (860ms)
-			LoadAssemblies (93ms)
+			CreateAndSetChildDomain (41ms)
+		EndReloadAssembly (2431ms)
+			LoadAssemblies (277ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (271ms)
-			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (47ms)
-			SetupLoadedEditorAssemblies (341ms)
+			SetupTypeCache (792ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (109ms)
+			SetupLoadedEditorAssemblies (891ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (4ms)
+				InitializePlatformSupportModulesInManaged (11ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (41ms)
-				BeforeProcessingInitializeOnLoad (71ms)
-				ProcessInitializeOnLoadAttributes (199ms)
-				ProcessInitializeOnLoadMethodAttributes (19ms)
-				AfterProcessingInitializeOnLoad (6ms)
-				EditorAssembliesLoaded (0ms)
+				RefreshPlugins (137ms)
+				BeforeProcessingInitializeOnLoad (200ms)
+				ProcessInitializeOnLoadAttributes (471ms)
+				ProcessInitializeOnLoadMethodAttributes (53ms)
+				AfterProcessingInitializeOnLoad (19ms)
+				EditorAssembliesLoaded (1ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (2ms)
+			AwakeInstancesAfterBackupRestoration (6ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.08 seconds
-Refreshing native plugins compatible for Editor in 0.43 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.17 seconds
+Refreshing native plugins compatible for Editor in 0.96 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2236 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 99.8 MB.
 System memory in use after: 99.9 MB.
 
 Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 2677.
-Total: 3.643700 ms (FindLiveObjects: 0.161000 ms CreateObjectMapping: 0.059400 ms MarkObjects: 3.339900 ms  DeleteObjects: 0.082200 ms)
+Total: 6.295100 ms (FindLiveObjects: 0.340200 ms CreateObjectMapping: 0.139000 ms MarkObjects: 5.627400 ms  DeleteObjects: 0.185700 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -134,367 +134,7 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  path: Assets/Jiho/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat
-  artifactKey: Guid(e73a58f6e2794ae7b1b7e50b7fb811b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat using Guid(e73a58f6e2794ae7b1b7e50b7fb811b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ca0d2861f60500f05bd29199894f7bb5') in 0.254426 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.019597 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMPro_Surface.cginc
-  artifactKey: Guid(d930090c0cd643c7b55f19a38538c162) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMPro_Surface.cginc using Guid(d930090c0cd643c7b55f19a38538c162) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a635ec737c90890fe650212c09c6b5b') in 0.023008 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.004631 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF SSD.shader
-  artifactKey: Guid(14eb328de4b8eb245bb7cea29e4ac00b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF SSD.shader using Guid(14eb328de4b8eb245bb7cea29e4ac00b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8eb8631edaccca3c7c92e282cd90f42') in 0.020582 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.018891 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF.shader
-  artifactKey: Guid(68e6db2ebdc24f95958faec2be5558d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF.shader using Guid(68e6db2ebdc24f95958faec2be5558d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5e276376f134606d998c83f30b2382d') in 0.013063 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.002078 seconds.
-  path: Assets/Jiho/Ani/Combo_ani.controller
-  artifactKey: Guid(2d3b8610effe43b41a757f3830f770c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/Ani/Combo_ani.controller using Guid(2d3b8610effe43b41a757f3830f770c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec82dbfcd2ef36b2bf9f7575425bf9f8') in 0.028106 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.019690 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders
-  artifactKey: Guid(e9f693669af91aa45ad615fc681ed29f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders using Guid(e9f693669af91aa45ad615fc681ed29f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '486066d15e4e2d1f404625b357b63227') in 0.015002 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.032440 seconds.
-  path: Assets/Jiho/DokeV/DokeV_JIHO.cs
-  artifactKey: Guid(d6eeaaacd4ead7e4bb25b20dff01aea7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/DokeV/DokeV_JIHO.cs using Guid(d6eeaaacd4ead7e4bb25b20dff01aea7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae0a150f54d34c5535f232e1f444e369') in 0.039017 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.006835 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader
-  artifactKey: Guid(fe393ace9b354375a9cb14cdbbc28be4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader using Guid(fe393ace9b354375a9cb14cdbbc28be4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cd9abc55b3b1b90d2aee75f94bec2ce2') in 0.014471 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.018484 seconds.
-  path: Assets/Jiho/DokeV
-  artifactKey: Guid(74ad9ed6bc1f394469df654d1ccbcad4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/DokeV using Guid(74ad9ed6bc1f394469df654d1ccbcad4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed54c4d241c12bcf92f76d8013be721f') in 0.015740 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.033129 seconds.
-  path: Assets/Jiho/Image/DokeVImage/Food.anim
-  artifactKey: Guid(740969e89d03a94438fe30cf35dbd37e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/Image/DokeVImage/Food.anim using Guid(740969e89d03a94438fe30cf35dbd37e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36769b8e7d9c4dcf21cea1d4166dc82d') in 0.026063 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.002259 seconds.
-  path: Assets/Jiho/prefab/AdventureSystem/Adventure_Game.cs
-  artifactKey: Guid(2f6476712071d7441871115356df8b87) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/prefab/AdventureSystem/Adventure_Game.cs using Guid(2f6476712071d7441871115356df8b87) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a50f26a8c2b38936d71dcbd886941772') in 0.013510 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.005090 seconds.
-  path: Assets/Jiho/prefab/AdventureSystem/AdventureSystem_Manager.cs
-  artifactKey: Guid(0469a571ecea3cb4d8b362e381360766) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/prefab/AdventureSystem/AdventureSystem_Manager.cs using Guid(0469a571ecea3cb4d8b362e381360766) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bddfefddd5d9c76e856ea2fb8c65f5db') in 0.013732 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.017600 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMP_Bitmap.shader
-  artifactKey: Guid(128e987d567d4e2c824d754223b3f3b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMP_Bitmap.shader using Guid(128e987d567d4e2c824d754223b3f3b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4eaa4f2e59b2183068e255f60e3bf704') in 0.017594 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.004855 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader
-  artifactKey: Guid(c8d12adcee749c344b8117cf7c7eb912) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader using Guid(c8d12adcee749c344b8117cf7c7eb912) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1ce44e3b945bca0e97700a3870b11083') in 0.014089 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.006373 seconds.
-  path: Assets/Jiho/TextMesh Pro/Resources/LineBreaking Following Characters.txt
-  artifactKey: Guid(fade42e8bc714b018fac513c043d323b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Resources/LineBreaking Following Characters.txt using Guid(fade42e8bc714b018fac513c043d323b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c84519695b966c8ddf8d325a6adc21d0') in 0.095185 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.003253 seconds.
-  path: Assets/Jiho/TextMesh Pro/Fonts
-  artifactKey: Guid(6ab70aee4d56447429c680537fbf93ed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Fonts using Guid(6ab70aee4d56447429c680537fbf93ed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c860dfdf0522eec1202f36843e52d436') in 0.013731 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.008290 seconds.
-  path: Assets/Jiho/TextMesh Pro/Sprites/EmojiOne.json
-  artifactKey: Guid(8f05276190cf498a8153f6cbe761d4e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Sprites/EmojiOne.json using Guid(8f05276190cf498a8153f6cbe761d4e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9c491a4afbdae75051e2e9640592dc2a') in 0.042142 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.019849 seconds.
-  path: Assets/Jiho/TextMesh Pro/Resources/Fonts & Materials
-  artifactKey: Guid(731f1baa9d144a9897cb1d341c2092b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Resources/Fonts & Materials using Guid(731f1baa9d144a9897cb1d341c2092b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cbd6dcea75119183330fd0c84a35eed7') in 0.016790 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.004140 seconds.
-  path: Assets/Jiho/TextMesh Pro
-  artifactKey: Guid(f54d1bd14bd3ca042bd867b519fee8cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro using Guid(f54d1bd14bd3ca042bd867b519fee8cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16b4cbde9565bf190136f1148817e1ea') in 0.015434 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.010813 seconds.
-  path: Assets/Jiho/Ani/Dokev/NotBallPlaying.anim
-  artifactKey: Guid(78a431556b3f01a43a3ac77562e4a572) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/Ani/Dokev/NotBallPlaying.anim using Guid(78a431556b3f01a43a3ac77562e4a572) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4a16e97e7d0f9e47329448466f46189e') in 0.012881 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.018608 seconds.
-  path: Assets/Jiho/Image/DokeVImage/Food_Good.anim
-  artifactKey: Guid(1731f2f9de0e8954bbe94d24766744df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/Image/DokeVImage/Food_Good.anim using Guid(1731f2f9de0e8954bbe94d24766744df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06bd53d26cbc7d3e649a0e5395f67bb1') in 0.015051 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.005766 seconds.
-  path: Assets/Jiho/prefab/AdventureSystem/SoundManager.cs
-  artifactKey: Guid(048f53a6884c84b409aee2aa9e7a01a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/prefab/AdventureSystem/SoundManager.cs using Guid(048f53a6884c84b409aee2aa9e7a01a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7f79c1c91a2b629a1f9e1e713242c21') in 0.014640 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.017762 seconds.
-  path: Assets/Jiho/Image/DokeVImage/Food_Bad.anim
-  artifactKey: Guid(304333938f5be2d41bdf313617f6bc65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/Image/DokeVImage/Food_Bad.anim using Guid(304333938f5be2d41bdf313617f6bc65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bf85dc303b3a8231c282959d95cd24c7') in 0.016345 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.019735 seconds.
-  path: Assets/Jiho/Ani/Combo.anim
-  artifactKey: Guid(5066de68c1528624fb80a263b17c84a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/Ani/Combo.anim using Guid(5066de68c1528624fb80a263b17c84a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '040a53d7d091ef83c8b8a6a23978eaa2') in 0.015579 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.008251 seconds.
-  path: Assets/Jiho/prefab/BackGround/BackGround.cs
-  artifactKey: Guid(ccfae6b124b731e4f8fc159b99ecff21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/prefab/BackGround/BackGround.cs using Guid(ccfae6b124b731e4f8fc159b99ecff21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f5e0c4605a8d9481c99f5b9254f8d73') in 0.012454 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.056367 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader
-  artifactKey: Guid(85187c2149c549c5b33f0cdb02836b17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader using Guid(85187c2149c549c5b33f0cdb02836b17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c140269a0a73369ff08712024433d78') in 0.014971 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.005005 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader
-  artifactKey: Guid(48bb5f55d8670e349b6e614913f9d910) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader using Guid(48bb5f55d8670e349b6e614913f9d910) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aac0467ad3e41836332f2df358582d26') in 0.012633 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.019740 seconds.
-  path: Assets/Jiho/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset
-  artifactKey: Guid(8f586378b4e144a9851e7b34d9b748ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset using Guid(8f586378b4e144a9851e7b34d9b748ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1280cc7be10b532b2897fc8654f95d3') in 0.083597 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.004208 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMPro_Properties.cginc
-  artifactKey: Guid(3997e2241185407d80309a82f9148466) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMPro_Properties.cginc using Guid(3997e2241185407d80309a82f9148466) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '25b87a6c906e2ff6005352074e70dba6') in 0.014758 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.004943 seconds.
-  path: Assets/Jiho/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset
-  artifactKey: Guid(f952c082cb03451daed3ee968ac6c63e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset using Guid(f952c082cb03451daed3ee968ac6c63e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '99846f5a5cef2b9fb3476a6a84d35918') in 0.015035 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.040165 seconds.
-  path: Assets/Jiho/TextMesh Pro/Documentation
-  artifactKey: Guid(8e7e8f5a82a3a134e91c54efd2274ea9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Documentation using Guid(8e7e8f5a82a3a134e91c54efd2274ea9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f5aa99e36510f23d626084d8be9669f') in 0.014305 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.008984 seconds.
-  path: Assets/Jiho/prefab/AdventureSystem/starforce_Main/starforce_Main.prefab
-  artifactKey: Guid(796837c56ffcab446a202107984d4633) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/prefab/AdventureSystem/starforce_Main/starforce_Main.prefab using Guid(796837c56ffcab446a202107984d4633) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e2abf645d8d23fb22578a84b6e0cc08') in 0.114935 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.005176 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMPro.cginc
-  artifactKey: Guid(407bc68d299748449bbf7f48ee690f8d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMPro.cginc using Guid(407bc68d299748449bbf7f48ee690f8d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7b84941a55f9012bae7f955040ccce9') in 0.020883 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.020455 seconds.
-  path: Assets/Jiho/TextMesh Pro/Fonts/LiberationSans - OFL.txt
-  artifactKey: Guid(6e59c59b81ab47f9b6ec5781fa725d2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Fonts/LiberationSans - OFL.txt using Guid(6e59c59b81ab47f9b6ec5781fa725d2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd8ed59a48b952935c94a9302b2b79e3d') in 0.015275 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.003110 seconds.
-  path: Assets/Jiho/TextMesh Pro/Resources/Style Sheets
-  artifactKey: Guid(4aecb92fff08436c8303b10eab8da368) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Resources/Style Sheets using Guid(4aecb92fff08436c8303b10eab8da368) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8eb160d1f2f0150837d5eca199ae2098') in 0.015061 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.003645 seconds.
-  path: Assets/Jiho/prefab/AdventureSystem/starforce_Main/Starforce.cs
-  artifactKey: Guid(a1bd64f38d1c6754da7b0d861b1380c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/prefab/AdventureSystem/starforce_Main/Starforce.cs using Guid(a1bd64f38d1c6754da7b0d861b1380c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd687c4357d84cb78e41b25dde43ce8c2') in 0.014370 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.004813 seconds.
-  path: Assets/Jiho/Ani/Dokev/성장기_0.controller
-  artifactKey: Guid(dfcb0e5880a42bd42b69f288c12f8739) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/Ani/Dokev/성장기_0.controller using Guid(dfcb0e5880a42bd42b69f288c12f8739) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1166893486a0a2c8685cddef3517c126') in 0.014363 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.004640 seconds.
-  path: Assets/Jiho/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset
-  artifactKey: Guid(c41005c129ba4d66911b75229fd70b45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset using Guid(c41005c129ba4d66911b75229fd70b45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '093a2cdfc4701742cd4e2e9653a3929b') in 0.011511 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.003427 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader
-  artifactKey: Guid(bc1ede39bf3643ee8e493720e4259791) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader using Guid(bc1ede39bf3643ee8e493720e4259791) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7ad90591e76cc831a3ba35461600c617') in 0.013407 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.019369 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMP_Sprite.shader
-  artifactKey: Guid(cf81c85f95fe47e1a27f6ae460cf182c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMP_Sprite.shader using Guid(cf81c85f95fe47e1a27f6ae460cf182c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ccbae71392eb11caf5302891366b194c') in 0.014400 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.004842 seconds.
-  path: Assets/Jiho/TextMesh Pro/Sprites/EmojiOne Attribution.txt
-  artifactKey: Guid(381dcb09d5029d14897e55f98031fca5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Sprites/EmojiOne Attribution.txt using Guid(381dcb09d5029d14897e55f98031fca5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a93e932dc712dec422b2d5903b71fff9') in 0.015444 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.004953 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMPro_Mobile.cginc
-  artifactKey: Guid(c334973cef89a9840b0b0c507e0377ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMPro_Mobile.cginc using Guid(c334973cef89a9840b0b0c507e0377ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '858a7b7b43960fe146a89d5439ebbdfb') in 0.024072 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.053627 seconds.
-  path: Assets/Jiho/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
-  artifactKey: Guid(2e498d1c8094910479dc3e1b768306a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset using Guid(2e498d1c8094910479dc3e1b768306a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b8c2210586957436df79bf961aeff06e') in 0.028885 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.005510 seconds.
-  path: Assets/Jiho/Ani/Dokev/DokeV.controller
-  artifactKey: Guid(0cb90dab3c46dd647bf30f44a03f6815) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/Ani/Dokev/DokeV.controller using Guid(0cb90dab3c46dd647bf30f44a03f6815) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cc53be9a01813bd871bf3ed989ef2e04') in 0.007902 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.003135 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF-Surface.shader
-  artifactKey: Guid(f7ada0af4f174f0694ca6a487b8f543d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF-Surface.shader using Guid(f7ada0af4f174f0694ca6a487b8f543d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '786f4af90b3b491a70909eea072ea7db') in 0.013826 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.004640 seconds.
-  path: Assets/Jiho/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat
-  artifactKey: Guid(79459efec17a4d00a321bdcc27bbc385) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat using Guid(79459efec17a4d00a321bdcc27bbc385) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '289988fcecf3b00d1602f8d2b589f7dd') in 0.071883 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.001886 seconds.
-  path: Assets/Jiho/TextMesh Pro/Resources/Sprite Assets
-  artifactKey: Guid(512a49d95c0c4332bdd98131869c23c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Resources/Sprite Assets using Guid(512a49d95c0c4332bdd98131869c23c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b31814b8e9a6a2d42a48cf87797f0e5e') in 0.012479 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.007469 seconds.
-  path: Assets/Jiho/Scenes/SampleScene.unity
-  artifactKey: Guid(2cda990e2423bbf4892e6590ba056729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/Scenes/SampleScene.unity using Guid(2cda990e2423bbf4892e6590ba056729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '39830e642e86629427d938554181f2fd') in 0.013655 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.034820 seconds.
-  path: Assets/Jiho/TextMesh Pro/Sprites/EmojiOne.png
-  artifactKey: Guid(dffef66376be4fa480fb02b19edbe903) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Sprites/EmojiOne.png using Guid(dffef66376be4fa480fb02b19edbe903) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b1df798116dda2085c522976514023f') in 0.026901 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.004470 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF Overlay.shader
-  artifactKey: Guid(dd89cf5b9246416f84610a006f916af7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF Overlay.shader using Guid(dd89cf5b9246416f84610a006f916af7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '08200853d6a81abc3d876ceb943d4f5f') in 0.014885 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.005681 seconds.
-  path: Assets/Jiho/prefab/AdventureSystem/starforce_Main/StarCheck.cs
-  artifactKey: Guid(9dfc542bb7ebb2548b2888ee158ac7ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/prefab/AdventureSystem/starforce_Main/StarCheck.cs using Guid(9dfc542bb7ebb2548b2888ee158ac7ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f5ec8bce41b6aec1eebbcce3284fd522') in 0.014176 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.022728 seconds.
   path: Assets/Jiho/Jiho.unity
   artifactKey: Guid(67b7a718dc0ce2943a4e9b160f48b5d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/Jiho.unity using Guid(67b7a718dc0ce2943a4e9b160f48b5d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '48a6c8f3e1c53f530d41242fb5372330') in 0.014174 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.025985 seconds.
-  path: Assets/Jiho/Ani/Dokev/Idle.anim
-  artifactKey: Guid(39fe200123192b14c82599cf123d4e3f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/Ani/Dokev/Idle.anim using Guid(39fe200123192b14c82599cf123d4e3f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24651d3832964bfa77f2e67eafb0ceea') in 0.018982 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.033557 seconds.
-  path: Assets/Jiho/TextMesh Pro/Resources/TMP Settings.asset
-  artifactKey: Guid(3f5b5dff67a942289a9defa416b206f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Resources/TMP Settings.asset using Guid(3f5b5dff67a942289a9defa416b206f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '80217e6c75f9d2e4957cbc8093faaf48') in 0.038629 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.003233 seconds.
-  path: Assets/Jiho/TextMesh Pro/Sprites
-  artifactKey: Guid(d0603b6d5186471b96c778c3949c7ce2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Sprites using Guid(d0603b6d5186471b96c778c3949c7ce2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c825b4ecabc52a724fdd8944d5209777') in 0.013171 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.018853 seconds.
-  path: Assets/Jiho/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf
-  artifactKey: Guid(1b8d251f9af63b746bf2f7ffe00ebb9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf using Guid(1b8d251f9af63b746bf2f7ffe00ebb9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '68a8cd0d128e2de1afc31d38fd538062') in 0.029645 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.004227 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader
-  artifactKey: Guid(1e3b057af24249748ff873be7fafee47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader using Guid(1e3b057af24249748ff873be7fafee47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c37d6df7a2bfbe009b9a8cf6dcfb61ea') in 0.013510 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.002056 seconds.
-  path: Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader
-  artifactKey: Guid(a02a7d8c237544f1962732b55a9aebf1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader using Guid(a02a7d8c237544f1962732b55a9aebf1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fec40d30ca570896fd850d8e27ec9ab') in 0.014871 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.004659 seconds.
-  path: Assets/Jiho/TextMesh Pro/Resources
-  artifactKey: Guid(243e06394e614e5d99fab26083b707fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Resources using Guid(243e06394e614e5d99fab26083b707fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0df7051f5b12f3f69d646d60f9166c36') in 0.013650 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.004836 seconds.
-  path: Assets/Jiho/TextMesh Pro/Resources/LineBreaking Leading Characters.txt
-  artifactKey: Guid(d82c1b31c7e74239bff1220585707d2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Resources/LineBreaking Leading Characters.txt using Guid(d82c1b31c7e74239bff1220585707d2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '55ff7fcf1dc11b21acfd2150599fb6bf') in 0.014502 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.005454 seconds.
-  path: Assets/Jiho/TextMesh Pro/Fonts/LiberationSans.ttf
-  artifactKey: Guid(e3265ab4bf004d28a9537516768c1c75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Jiho/TextMesh Pro/Fonts/LiberationSans.ttf using Guid(e3265ab4bf004d28a9537516768c1c75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bdddd331c3f1b7826858a8d92db67e39') in 0.053945 seconds 
+Start importing Assets/Jiho/Jiho.unity using Guid(67b7a718dc0ce2943a4e9b160f48b5d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce2c5f4ff7803f999529a14561ac74dd') in 0.037839 seconds 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

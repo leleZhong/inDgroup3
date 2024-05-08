@@ -121,10 +121,11 @@ public class DokeV_JIHO : MonoBehaviour
         Dialog_TMP.transform.parent.gameObject.SetActive(false);
     }
 
-    public bool DoKev_Staute()
+    public bool DoKev_Staute()//놀기를 눌렀을 때 피곤한지 확인
     {
         if (CurPlaying != Playing.tired)
         {
+            //피곤하지않다면 놀수있다
             return true;
         }
         else
@@ -258,8 +259,11 @@ public class DokeV_JIHO : MonoBehaviour
 
     //-------------------------------------------------Glass-------------------------------------------
     //-------------------------------------------------Food-------------------------------------------
-    void Eated_Food()
+    void Eated_Food()//코루틴으로 실행
     {
+
+        //음식 하나 줄이기
+
         ani.SetInteger("Food",0);
         CurPlaying = Playing.none;
     }
@@ -297,7 +301,7 @@ public class DokeV_JIHO : MonoBehaviour
 
     }
 
-    void OffDummy()
+    void OffDummy()//코루틴 실행
     {
         Clean_Dummy.SetActive(false);
         CurPlaying = Playing.none;
@@ -326,7 +330,7 @@ public class DokeV_JIHO : MonoBehaviour
         }
     }
 
-    void Playing_End()
+    void Playing_End()//Invoke 실행
     {
         ani.SetInteger("BallPlaying", 0);
         CurPlaying = Playing.none;

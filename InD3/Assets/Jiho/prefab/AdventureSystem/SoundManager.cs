@@ -35,7 +35,7 @@ public class SoundManager : MonoBehaviour
                 break;
 
         }
-
+       
     }
 
 
@@ -52,6 +52,21 @@ public class SoundManager : MonoBehaviour
         foreach (AudioSource a_s in SoundEffect_List)
         {
             a_s.volume = Effect_Slider.value;
+            
         }
     }
+
+    public void OpenPanel(GameObject g)//ÆÇ³Ú ¿­¾îÁÜ
+    {
+        g.SetActive(true);
+    }
+
+    public void ClosePanel(GameObject g)//ÆÇ³Ú ´Ý¾ÆÁÜ
+    {
+        g.SetActive(false);
+       
+    }
+
+
+   
 }

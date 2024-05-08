@@ -1,22 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 
 public class DokeV_JIHO : MonoBehaviour
 {
     public GameObject DokeV;
-    public float Speed;
+    // Dialog
+    public TextMeshProUGUI Dialog_TMP;
 
 
     public GameObject Glass;
     public Transform Glass_Pos;
+
 
     //Ball
 
 
     //Glass
     GameObject curGlass;
-    [SerializeField] Sprite In_Glass_Ani;
     [SerializeField] float push_Time;
     float push_CurTime;
     RaycastHit2D hit;
@@ -90,10 +93,39 @@ public class DokeV_JIHO : MonoBehaviour
         
     }
 
-    public bool DoKev_Staute()
+    //----------------------Dialog---------------------------------------------
+    public void Dialog_Text_F(string t)
+    {
+        Dialog_TMP.text = t;
+        StartCoroutine("Distoty_Dialog");
+    }
+
+    IEnumerator Distoty_Dialog()
+    {
+        Dialog_TMP.transform.parent.gameObject.SetActive(true);
+        Color c = Dialog_TMP.GetComponent<TextMeshProUGUI>().color;
+        c.a = 1;
+        Dialog_TMP.GetComponent<TextMeshProUGUI>().color = c;
+
+        while (true)
+        {
+            yield return new WaitForSeconds(0.1f);
+
+            c.a -= 0.1f;
+            Dialog_TMP.GetComponent<TextMeshProUGUI>().color = c;
+            if(c.a<=0)
+            {
+                break;
+            }
+        }
+        Dialog_TMP.transform.parent.gameObject.SetActive(false);
+    }
+
+    public bool DoKev_Staute()//놀기를 눌렀을 때 피곤한지 확인
     {
         if (CurPlaying != Playing.tired)
         {
+            //피곤하지않다면 놀수있다
             return true;
         }
         else
@@ -118,25 +150,32 @@ public class DokeV_JIHO : MonoBehaviour
                 Color c = new Color(1, 1, 1, 1);
                 dirty_Dummy.SetActive(true);
                 dirty_Dummy.gameObject.GetComponent<SpriteRenderer>().color = c;
+                Dialog_Text_F("도깨비가 더러워보인다");
                 break;
 
             case Playing.glass:
                 CurPlaying = Playing.glass;
                 push_CurTime = push_Time;
                 ani.SetInteger("Glass", 1);
-               
-                
+                Dialog_Text_F("도깨비가 답답해 보인다"); 
+
+
+
                 break;
 
             case Playing.food:
                 CurPlaying = Playing.food;
                 ani.SetInteger("Food", 1);
                 Invoke("Eated_Food", 5);
+                Dialog_Text_F("도깨비가 배불러보인다");
+
                 //Inven _ Get _ Food
                 break;
 
             case Playing.tired:
                 CurPlaying = Playing.tired;
+                ani.SetInteger("Tired", 1);
+                Dialog_Text_F("도깨비가 지쳐서 놀기 싫어하는거같다");
                 break;
         }
 
@@ -220,8 +259,11 @@ public class DokeV_JIHO : MonoBehaviour
 
     //-------------------------------------------------Glass-------------------------------------------
     //-------------------------------------------------Food-------------------------------------------
-    void Eated_Food()
+    void Eated_Food()//코루틴으로 실행
     {
+
+        //음식 하나 줄이기
+
         ani.SetInteger("Food",0);
         CurPlaying = Playing.none;
     }
@@ -259,7 +301,7 @@ public class DokeV_JIHO : MonoBehaviour
 
     }
 
-    void OffDummy()
+    void OffDummy()//코루틴 실행
     {
         Clean_Dummy.SetActive(false);
         CurPlaying = Playing.none;
@@ -276,17 +318,19 @@ public class DokeV_JIHO : MonoBehaviour
             //Good
             ani.SetInteger("BallPlaying", 1);
             Invoke("Playing_End", 3);
+            Dialog_Text_F("도깨비는 공놀이가 재미있다");
         }
         else if (num == 1 && ani.GetInteger("BallPlaying") == 0)
         {
             //bad
             ani.SetInteger("BallPlaying", -1);
             Invoke("Playing_End", 3);
+            Dialog_Text_F("도깨비는 공놀이를 싫어하는것같다");
 
         }
     }
 
-    void Playing_End()
+    void Playing_End()//Invoke 실행
     {
         ani.SetInteger("BallPlaying", 0);
         CurPlaying = Playing.none;
@@ -297,6 +341,7 @@ public class DokeV_JIHO : MonoBehaviour
 
     IEnumerator DoKeV_Tired()
     {
+        
         yield return new WaitForSeconds(10f);
         CurPlaying = Playing.none;
     }
@@ -311,5 +356,6 @@ public class DokeV_JIHO : MonoBehaviour
             CurPlaying = Playing.none;
         }
     }
+
 
 }

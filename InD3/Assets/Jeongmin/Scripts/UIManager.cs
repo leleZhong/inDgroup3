@@ -13,7 +13,9 @@ public class UIManager : MonoBehaviour
     public TMP_Text _finalScore;
     public GameObject[] _life;
     public Image _timer;
+
     public GameObject[] _levelCircles;
+    public GameObject _levelUp;
 
     void Awake()
     {
@@ -23,6 +25,8 @@ public class UIManager : MonoBehaviour
         {
             _levelCircles[i].SetActive(false);
         }
+        
+        _levelUp.SetActive(false);
     }
 
     public void UpdateTimer(float fillAmount)
@@ -63,6 +67,13 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    IEnumerator ShowLevelUpForSeconds(float seconds)
+    {
+        _levelUp.SetActive(true);
+        yield return new WaitForSeconds(seconds);
+        _levelUp.SetActive(false);
+    }
+
     void OnLevelChange(int level)
     {
         switch (level)
@@ -70,14 +81,15 @@ public class UIManager : MonoBehaviour
             case 1:
                 _levelCircles[0].SetActive(true);
                 _levelCircles[1].SetActive(true);
+                StartCoroutine(ShowLevelUpForSeconds(0.3f));
                 break;
             case 2:
                 _levelCircles[2].SetActive(true);
-                _levelCircles[3].SetActive(true);
+                StartCoroutine(ShowLevelUpForSeconds(0.3f));
                 break;
             case 3:
                 _levelCircles[4].SetActive(true);
-                _levelCircles[5].SetActive(true);
+                StartCoroutine(ShowLevelUpForSeconds(0.3f));
                 break;
         }
     }

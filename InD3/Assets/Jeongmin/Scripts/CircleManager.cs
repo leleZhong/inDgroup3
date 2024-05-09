@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -28,7 +29,7 @@ public class CircleManager : MonoBehaviour
     int _level = 1;
     public event Action<int> OnLevelChange;
 
-    float _timeLimit = 20f; // 초기 제한 시간 설정
+    float _timeLimit = 5f; // 초기 제한 시간 설정
     float _timeRemaining;   // 남은 시간
 
     void Awake()
@@ -65,9 +66,15 @@ public class CircleManager : MonoBehaviour
         
         if (_timeRemaining <= 0)
         {
-            GameOver();
+            if (_score >= GetTargetScoreForLevel(_level))
+            {
+                UpdateLevel();
+            }
+            else
+            {
+                GameOver();
+            }
         }
-
     }
 
     void AddInitialCircles()
@@ -86,13 +93,29 @@ public class CircleManager : MonoBehaviour
         _circleQueue.Enqueue(newCircle);
     }
 
-    void RemoveData()
+    IEnumerator MoveAndRemove(GameObject circleToRemove, Vector3 direction, float moveTime)
+    {
+        float startTime = Time.time;
+        Vector3 startPostion = circleToRemove.transform.position;
+
+        while (Time.time - startTime < moveTime)
+        {
+            circleToRemove.transform.position = Vector3.Lerp(startPostion, startPostion + direction, (Time.time - startTime) / moveTime);
+            yield return null;
+        }
+
+        Destroy(circleToRemove);
+    }
+
+    void RemoveData(Vector3 direction)
     {
         // 큐의 첫번째 원소를 제거
         if (_circleQueue.Count > 0)
         {
             GameObject circleToRemove = _circleQueue.Dequeue();
-            Destroy(circleToRemove);
+            // 원하는 이동 시간을 설정합니다. (예: 1초 동안 이동)
+            float moveTime = 0.1f;
+            StartCoroutine(MoveAndRemove(circleToRemove, direction, moveTime));
         }
     }
 
@@ -100,7 +123,7 @@ public class CircleManager : MonoBehaviour
     {
         if (_circleQueue.Peek().CompareTag("Left"))
         {
-            RemoveData();
+            RemoveData(new Vector3(-1, 0, 0));
             AddData();
             MovePosition();
             AddScore();
@@ -115,7 +138,7 @@ public class CircleManager : MonoBehaviour
     {
         if (_circleQueue.Peek().CompareTag("Right"))
         {
-            RemoveData();
+            RemoveData(new Vector3(1, 0, 0));
             AddData();
             MovePosition();
             AddScore();
@@ -140,7 +163,6 @@ public class CircleManager : MonoBehaviour
     public void AddScore()
     {
         _score++;
-        UpdateLevel();
         OnScoreChange?.Invoke(_score);
     }
 
@@ -182,10 +204,20 @@ public class CircleManager : MonoBehaviour
     {
         switch (level)
         {
-            case 1: return 10f;
-            case 2: return 15f;
-            case 3: return 20f;
-            default: return 10f;
+            case 1: return 5f;
+            case 2: return 5f;
+            case 3: return 5f;
+            default: return 5f;
+        }
+    }
+
+    int GetTargetScoreForLevel(int level)
+    {
+        switch (level)
+        {
+            case 1: return 10;
+            case 2: return 30;
+            default: return 50;
         }
     }
 

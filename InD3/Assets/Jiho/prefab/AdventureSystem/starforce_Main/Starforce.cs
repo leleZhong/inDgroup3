@@ -46,6 +46,7 @@ public class Starforce : Adventure_Game
     public GameObject Result_Panel;
     public TextMeshProUGUI Result;
     public TextMeshProUGUI Final_Result;
+
     private void Start()
     {
         //Timer_Slider

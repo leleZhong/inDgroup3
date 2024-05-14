@@ -7,54 +7,54 @@ using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
-    //º¯¼ö ¼±¾ð
-    static int itemtype = 100;                                              // ¾ÆÀÌÅÛ Á¾·ù(ÀÎÅ×¸®¾î OR ¸ÔÀÌ ±¸ºÐ)
-    static int[] foodPrice_A = new int[] { 100, 200, 200, 200, 300 };      // ¸ÔÀÌ ¾ÆÀÌÅÛ °¡°Ý (ÀÎµ¦½º ¼ø¼­´ë·Î ±âº»,±èºº,¹Ù³ª³ª¿ìÀ¯,ÆÒÄÉŸå)
-    static int foodtype = 100;                                              // ¸ÔÀÌ Á¾·ù
-    static int foodQuantity = 0;                                           // ¸ÔÀÌ ¼ö·®
-    static int foodPrice = 0;                                              // ¸ÔÀÌ ÃÑ °¡°Ý
-    static int[] interiorPrice_A = new int[] { 100, 200, 200, 200 };       // ÀÎÅ×¸®¾î °¡°Ý
-    static int interiorType = 100;                                          // ÀÎÅ×¸®¾î Á¾·ù
-    static int interiorQuantity = 0;                                        // ÀÎÅ×¸®¾î ¼ö·®
-    static int interioPrice = 0;                                            // ÀÎÅ×¸®¾î ÃÑ °¡°Ý
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    static int itemtype = 100;                                              // 0 = ë¨¹ì´, 1 = ê°€êµ¬
+    static int[] foodPrice_A = new int[] { 100, 200, 200, 200, 300 };      // ë¨¹ì´ 4ê°œ
+    static int foodtype = 100;                                              // ë¨¹ì´ íƒ€ìž… 0~3
+    static int foodQuantity = 0;                                           // ì•„ì´í…œ ìˆ˜ëŸ‰ ë‹´ê¸´ ë³€ìˆ˜
+    static int foodPrice = 0;                                              // ë¨¹ì´ ê°€ê²©
+    static int[] interiorPrice_A = new int[] { 100, 200, 200, 200 };      // 
+    static int interiorType = 100;                                         
+    static int interiorQuantity = 0;                                       
+    static int interioPrice = 0;                                           
 
 
 
 
 
-    // »ç¿ëÇÒ ¿ÀºêÁ§Æ®
-    public GameObject _Shop_Panel;                                          // shop ÆÐ³Î
-    public GameObject _ShopFood;                                            // foodÅÇ ÆÐ³Î
-    public GameObject _Shopinterior;                                        // interioÅÇ ÆÐ³Î
-    public GameObject _Purchase_Panel;                                      // °áÁ¦Ã¢ ÆÐ³Î
-    //°áÁ¦Ã¢¿¡¼­ °¡°Ý,¼ö·® ÅØ½ºÆ®
-    public TMP_Text _Price_count;                                           // °¡°Ý ÅØ½ºÆ®
-    public TMP_Text _Quantity_count;                                        // ¼ö·® ÅØ½ºÆ®
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    public GameObject _Shop_Panel;                                          // shop ï¿½Ð³ï¿½
+    public GameObject _ShopFood;                                            // foodï¿½ï¿½ ï¿½Ð³ï¿½
+    public GameObject _Shopinterior;                                        // interioï¿½ï¿½ ï¿½Ð³ï¿½
+    public GameObject _Purchase_Panel;                                      // ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½Ð³ï¿½
+    //ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ®
+    public TMP_Text _Price_count;                                           // ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ®
+    public TMP_Text _Quantity_count;                                        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ®
 
 
 
 
 
 
-    // ¸ÞÀÎÈ­¸é¿¡¼­ »óÁ¡ ¸Þ´º ¹öÆ° , »óÁ¡ ´Ý±â ¹öÆ°, ¸ÔÀÌÅÇ ¹öÆ°, ÀÎÅ×¸®¾îÅÇ ¹öÆ° 
-    // ¸ÞÀÎÈ­¸é¿¡¼­ »óÁ¡ ¸Þ´º ¹öÆ°
+    // ï¿½ï¿½ï¿½ï¿½È­ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½Æ° , ï¿½ï¿½ï¿½ï¿½ ï¿½Ý±ï¿½ ï¿½ï¿½Æ°, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°, ï¿½ï¿½ï¿½×¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° 
+    // ï¿½ï¿½ï¿½ï¿½È­ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½Æ°
     public void Main_Shop_Btn()
     {
         _Shop_Panel.SetActive(true);
         
     }
-    // »óÁ¡ ´Ý±â ¹öÆ°(X¹öÆ°)
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ý±ï¿½ ï¿½ï¿½Æ°(Xï¿½ï¿½Æ°)
     public void ShopCancel_Btn()
     {
         _Shop_Panel.SetActive(false);
     }
-    // ¸ÔÀÌÅÇ ¹öÆ°
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
     public void ShopFood_Btn()
     {
         _Shopinterior.SetActive(false);
         _ShopFood.SetActive(true);
     }
-    //ÀÎÅ×¸®¾îÅÇ ¹öÆ°
+    //ï¿½ï¿½ï¿½×¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
     public void Shopinterior_Btn()
     {
         _ShopFood.SetActive(false);
@@ -62,7 +62,7 @@ public class Shop : MonoBehaviour
     }
 
 
-    // ¸ÔÀÌ ÅÇ¿¡¼­ °¢°¢ÀÇ ¸ÔÀÌ ¹öÆ°(¼±ÅÃ)--------------------------------------------------------------------------------------------------------------------
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°(ï¿½ï¿½ï¿½ï¿½)--------------------------------------------------------------------------------------------------------------------
     public void Food_Basic_Btn()
     {
         itemtype = 0;
@@ -122,7 +122,7 @@ public class Shop : MonoBehaviour
         _Purchase_Panel.SetActive(true);
     }
 
-    // ÀÎÅ×¸®¾î ÅÇ¿¡¼­ °¢°¢ÀÇ ÀÎÅ×¸®¾î ¹öÆ°(¼±ÅÃ)----------------------------------------------------------------------------------------------------------------
+    // ï¿½ï¿½ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Ç¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°(ï¿½ï¿½ï¿½ï¿½)----------------------------------------------------------------------------------------------------------------
     public void Interior1_Btn()
     {
         itemtype = 1;
@@ -168,12 +168,12 @@ public class Shop : MonoBehaviour
 
     }
 
-    // °áÁ¦Ã¢ ---------------------------------------------------------------------------------------------------------------------------------------
+    // ï¿½ï¿½ï¿½ï¿½Ã¢ ---------------------------------------------------------------------------------------------------------------------------------------
 
-    // ¼ö·® ¾÷ ¹öÆ°
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Æ°
     public void Quantity_Up_Btn()
     {
-        // ¸ÔÀÌ
+        // ï¿½ï¿½ï¿½ï¿½
         switch (foodtype)
         {
             case 0:
@@ -208,7 +208,7 @@ public class Shop : MonoBehaviour
                 _Price_count.text = foodPrice_A[foodtype].ToString();
                 break;
         }
-        // ÀÎÅ×¸®¾î
+        // ï¿½ï¿½ï¿½×¸ï¿½ï¿½ï¿½
         switch (interiorType)
         {
             case 0:
@@ -239,10 +239,10 @@ public class Shop : MonoBehaviour
         }
     }
 
-    // ¼ö·® ´Ù¿î ¹öÆ°
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½Æ°
     public void Quantity_Down_Btn()
     {
-        // ¸ÔÀÌ
+        // ï¿½ï¿½ï¿½ï¿½
         if (foodPrice_A[0] > 100 && foodQuantity > 1 && foodtype == 0)
         {
             foodQuantity -= 1;
@@ -280,7 +280,7 @@ public class Shop : MonoBehaviour
             _Price_count.text = foodPrice_A[foodtype].ToString();
         }
         
-        // ÀÎÅ×¸®¾î
+        // ï¿½ï¿½ï¿½×¸ï¿½ï¿½ï¿½
         else if (interiorPrice_A[0] > 100 && interiorQuantity > 1 && interiorType == 0)
         {
             interiorQuantity -= 1;
@@ -313,24 +313,24 @@ public class Shop : MonoBehaviour
         
     }
 
-    // °áÁ¦ È®ÀÎ ¹öÆ°
+    // ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½Æ°
     public void Purchase_Ok_Btn()
     {
         if (itemtype == 0)
         {
             var result = FoodGet();
-            Debug.Log($"¾ÆÀÌÅÛÅ¸ÀÔ: {itemtype}, Á¾·ù: {result.Item1}, ¼ö·®: {result.Item2}, °¡°Ý: {result.Item3}");
+            Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½: {itemtype}, ï¿½ï¿½ï¿½ï¿½: {result.Item1}, ï¿½ï¿½ï¿½ï¿½: {result.Item2}, ï¿½ï¿½ï¿½ï¿½: {result.Item3}");
         }
         else if (itemtype == 1)
         {
             var interioGet = InterioGet();
-            Debug.Log($"¾ÆÀÌÅÛÅ¸ÀÔ: {itemtype}, Á¾·ù: {interioGet.Item1}, ¼ö·®: {interioGet.Item2}, °¡°Ý: {interioGet.Item3}");
+            Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½: {itemtype}, ï¿½ï¿½ï¿½ï¿½: {interioGet.Item1}, ï¿½ï¿½ï¿½ï¿½: {interioGet.Item2}, ï¿½ï¿½ï¿½ï¿½: {interioGet.Item3}");
         }
        
         _Purchase_Panel.SetActive(false);
     }
 
-    // °áÁ¦Ã¢ Ãë¼Ò ¹öÆ°
+    // ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
     public void Purchase_Cancel_Btn()
     {
         
@@ -339,9 +339,9 @@ public class Shop : MonoBehaviour
     }
 
 
-    //¹ÝÈ¯ ÇÔ¼ö ---------------------------------------------------------------------------------------------------------------------------------------
+    //ï¿½ï¿½È¯ ï¿½Ô¼ï¿½ ---------------------------------------------------------------------------------------------------------------------------------------
 
-    // ¸ÔÀÌ ¹ÝÈ¯ ÇÔ¼ö
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½Ô¼ï¿½
     public(int, int, int) FoodGet()
     {
         
@@ -351,7 +351,7 @@ public class Shop : MonoBehaviour
         return (foodtype, foodQuantity, foodPrice);
     }
 
-    // ÀÎÅ×¸®¾î ¹ÝÈ¯ ÇÔ¼ö
+    // ï¿½ï¿½ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½Ô¼ï¿½
     public(int,int,int) InterioGet()
     {
         interioPrice = interiorPrice_A[interiorType];

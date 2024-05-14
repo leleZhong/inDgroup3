@@ -26,21 +26,16 @@ public class AdventureSystem_Manager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+
+    public void PerfectGameStart()
     {
-     if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Adventure_Game newG = Instantiate(GameList[0], new Vector3(0, 0, -1.5f), Quaternion.identity);
-            curGame = newG;
-            StartCoroutine("GameStart_Counting", newG);
-
-        }
-
+        Adventure_Game newG = Instantiate(GameList[0], new Vector3(0, 0, -1.5f), Quaternion.identity);
+        curGame = newG;
+        StartCoroutine("GameStart_Counting", newG);
         if (curGame!=null)
         {
             curGame.GetComponent<Adventure_Game>().Play_MiniGame();
         }
-       
     }
 
     //-------------------------------------------

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     
     // 먹이 변수
     public int foodType = 100; // 음식 종류, 아무것도 선택하지 않았을 때의 값을 미리 선언
-    public int[] foodCount = new int[4]; // 음식의 최대 개수와 각 음식의 개수
+    public int[] foodCount = new int[4]; // 음식의 최대 개수와 각 음식의 개수 //0 1 
     
     // 장난감 변수
     public int toyType = 100; // 장난감 종류, 아무것도 선택하지 않았을 때의 값을 미리 선언

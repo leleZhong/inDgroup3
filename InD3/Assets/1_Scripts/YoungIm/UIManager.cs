@@ -48,28 +48,31 @@ public class UIManager : MonoBehaviour
     //===============================================[ 시간 계산 ]====================================================
     
     public TMP_Text careCoolTime; // 게임 쿨타임 텍스트
+    public Image filledTimerImage;
+    public GameObject lvUpBtn;
 
     //==============================================[ 케어 지수, 정도, UI ]============================================
     [Header("----[ Care UI ]")]
-    public Image feedAmountImage;   // 배부른 정도 이미지 UI
-    public Image loveAmountImage;   // 쓰다듬은 정도 이미지 UI
+    public Image feedFilledImage;   // 배부른 정도 이미지 UI
+    public Image loveFilledImage;   // 쓰다듬은 정도 이미지 UI
 
-    public TMP_Text feedAmountText;    // 배부른 정도 텍스트 UI
-    public TMP_Text loveAmountText;    // 쓰다듬은 정도 텍스트 UI
+    //public TMP_Text feedAmountText;    // 배부른 정도 텍스트 UI
+    //public TMP_Text loveAmountText;    // 쓰다듬은 정도 텍스트 UI
 
     // 케어 버튼 변수
-    public Button shopBtn; // 상점 버튼
-    public Button feedBtn;  // 먹이 버튼
-    public Button playBtn;  // 놀기 버튼
+    //public Button shopBtn; // 상점 버튼
+    //public Button feedBtn;  // 먹이 버튼
+    //public Button playBtn;  // 놀기 버튼
 
     public GameObject shopPanel; // 상점 패널
     public GameObject toyPanel;
     public TMP_Text toyInfoText; // 장난감 정보 텍스트
     public TMP_Text toyNameText; // 장난감 이름 텍스트
-    public Image[] toyItemBtn; // 보이는 장난감 이미지
+    public Image[] toyItemBtn;
+    public Image[] toyItemImage; // 보이는 장난감 이미지
     public Sprite[] toyItemO; // 장난감 있을 때 이미지
     public Sprite[] toyItemX; // 장난감 없을 때 이미지
-    public Sprite[] toyItemSelected; // 장난감 선택시 이미지
+    //public Sprite[] toyItemSelected; // 장난감 선택시 이미지
 
 
     public Image[] expStates; // 경험치 상태 - 게임오브젝트로 수정해
@@ -87,6 +90,8 @@ public class UIManager : MonoBehaviour
     public GameObject playerNameInputGroup;
     public TMP_Text curCoinText;
     public int perfectResultCoin;
+
+    public GameObject goYardBtn;
 
     //==============================================[ 기타 ]==========================================================
 
@@ -108,9 +113,8 @@ public class UIManager : MonoBehaviour
         miniGameScene.SetActive(false);
         perfectGameScene.SetActive(false);
         yardScene.SetActive(false);
-
-        AddCurExpState();
-        ChangeExpText();
+        
+        goYardBtn.SetActive(false);
     }
 
     private void Start()
@@ -340,7 +344,7 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < gameManager.exp; i++)
         {
-            expStates[i].color = Color.yellow;;
+            expStates[i].color = new Color(0.6745098f, 0.7450981f, 0.5294118f, 1);
             ChangeExpText();
         }
     }
@@ -349,25 +353,46 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < gameManager.exp; i++)
         {
-            expStates[i].color = Color.black;;
+            expStates[i].color = Color.black;
         }
-        AddCurExpState();
+        SetExpStateActive();
+    }
+
+    public void SetExpStateActive()
+    {
+        for (int i = 0; i < gameManager.expRange[gameManager.growthLevel]; i++)
+        {
+            if(!expStates[i].gameObject.activeSelf)
+                expStates[i].gameObject.SetActive(true);
+        }
     }
     
     void AddCurExpState()
     {
-        for (int i = 0; i < gameManager.expRange[gameManager.growthLevel]; i++)
+        for (int i = 0; i < gameManager.expRange[1]; i++)
         {
             GameObject newExpState = Instantiate(expStatePrefab, expStateGroup.transform);
             newExpState.transform.position = expStateGroup.transform.position;
             newExpState.transform.rotation = expStateGroup.transform.rotation;
         }
         expStates = expStateGroup.GetComponentsInChildren<Image>();
+        for (int i = 0; i < expStates.Length; i++)
+        {
+            expStates[i].gameObject.SetActive(false);
+        }
     }
     
     public void ChangeExpText()
     {
-        expStateTMP.text = string.Format("{0:D2}:{1:D2}", gameManager.exp, gameManager.expRange[gameManager.growthLevel]);
+        expStateTMP.text = String.Format("{0:D}/{1:D}", gameManager.exp, gameManager.expRange[gameManager.growthLevel]);
+    }
+
+    public void ResetExpGroup()
+    {
+        for (int i = 0; i < expStates.Length; i++)
+        {
+            expStates[i].gameObject.SetActive(false);
+        }
     }
     
     // ==============================================================================================================
@@ -387,7 +412,7 @@ public class UIManager : MonoBehaviour
 
     // UI
     // 좌측 상단 포만도, 애정도, 청결도 UI Button
-    public void SetCareAmountText(int careAmountType)
+    /*public void SetCareAmountText(int careAmountType)
     {
         StartCoroutine(CareAmountTextNumber(careAmountType));
     }
@@ -423,9 +448,9 @@ public class UIManager : MonoBehaviour
                 loveAmountText.enabled = false;
                 break;
         }
-    }
+    }*/
     
-
+    
     // ==============================================================================================================
     // 도깨비 장난감 놓는 +버튼 상호작용시
     public void SetDokkaebiButton()
@@ -445,18 +470,19 @@ public class UIManager : MonoBehaviour
         toyNameText.text = "장난감 이름";
         toyInfoText.text = "장난감 선택 시 정보를 표시합니다.";
         if(gameManager.toyType != 100)
-            toyItemBtn[gameManager.toyType].sprite = toyItemO[gameManager.toyType];
+            toyItemImage[gameManager.toyType].color = new Color(1, 1, 1, 1);
+            //toyItemImage[gameManager.toyType].sprite = toyItemO[gameManager.toyType];
         gameManager.toyType = 100;
     }
 
     // 장난감 패널 열 때 아이템 목록 설정
     public void ToyBoxItem(int toyIndex)
     {
-        for (int i = 0; i < toyItemBtn.Length; i++)
+        for (int i = 0; i < toyItemImage.Length; i++)
         {
             if (i == toyIndex)
             {
-                if (toyItemBtn[i].sprite == toyItemX[i])
+                if (toyItemImage[i].sprite == toyItemX[i])
                 {
                     StartCoroutine(GameInfoMessage("장난감을 먼저 구매해주세요."));
                     return;
@@ -464,9 +490,11 @@ public class UIManager : MonoBehaviour
                 
                 if (gameManager.toyType != 100)
                 {
-                    toyItemBtn[gameManager.toyType].sprite = toyItemO[gameManager.toyType];
+                    //toyItemImage[gameManager.toyType].sprite = toyItemO[gameManager.toyType];
+                    toyItemImage[gameManager.toyType].color = new Color(1, 1, 1, 1);
                 }
-                toyItemBtn[toyIndex].sprite = toyItemSelected[toyIndex];
+                //toyItemImage[toyIndex].sprite = toyItemSelected[toyIndex];
+                toyItemBtn[toyIndex].color = new Color(0.5f, 0.5f, 0.5f, 1);
                 gameManager.toyType = toyIndex;
                 switch (gameManager.toyType)
                 {
@@ -500,11 +528,11 @@ public class UIManager : MonoBehaviour
             return;
         }
         
-        toyItemBtn[gameManager.toyType].sprite = toyItemX[gameManager.toyType];
+        toyItemImage[gameManager.toyType].sprite = toyItemX[gameManager.toyType];
         
         // 장난감 패널 닫기
         toyPanel.SetActive(false);
-        toyItemBtn[gameManager.toyType].sprite = toyItemO[gameManager.toyType];
+        toyItemImage[gameManager.toyType].sprite = toyItemO[gameManager.toyType];
         
         // 도깨비 장난감 설치
         dkbSettingBtn.SetActive(false);
@@ -544,6 +572,7 @@ public class UIManager : MonoBehaviour
         yardScene.SetActive(false);
         gameManager.collectionGroup.SetActive(false);
         playerName.text = PlayerPrefs.GetString("PlayerName");
+        AddCurExpState();
         isSetToy = true;
     }
 

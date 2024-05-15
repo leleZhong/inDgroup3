@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
     // 기본 성장 변수
     public int growthLevel;   // 도깨비 성장 레벨
     public bool isGrowStart;  // 성장 시작 확인
+    public bool isLvUp;
     // lv0 ~ lv1 성장
     public GameObject[] dkbObjs;         // lv0 ~ lv1 도깨비 게임 오브젝트
     public Animator[] dkbAnims;          // lv0 ~ lv1 도깨비 애니메이터 
@@ -97,12 +98,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            print("체크");
-        }
+        uiManager.loveFilledImage.fillAmount = (float)loveAmount / 100;
+        uiManager.feedFilledImage.fillAmount = (float)feedAmount / 100;
+        
         // 키우기가 시작됐을 때(도깨비 장난감을 놓은 순간) 쿨다운 시작
-        if(!isGrowStart)
+        if(!isGrowStart || isLvUp)
             return;
         CareCoolDown();
     }
@@ -127,6 +127,8 @@ public class GameManager : MonoBehaviour
     {
         // 쿨타임 감소 및 시:분:초 계산
         _remainingTimeS -= Time.deltaTime;
+        uiManager.filledTimerImage.fillAmount = (_remainingTimeH * 3600 + _remainingTimeM * 60 + _remainingTimeS) /
+                                                (coolH * 3600 + coolM * 60 + coolS);
         if (_remainingTimeS <= 0f && _remainingTimeM != 0f)
         {
             _remainingTimeM -= 1f;
@@ -172,6 +174,8 @@ public class GameManager : MonoBehaviour
         uiManager.isSetToy = false;
         dkbObjs[0].SetActive(true);
         dkbToy.SetActive(false);
+        uiManager.SetExpStateActive();
+        uiManager.ChangeExpText();
         dkbSpriteRs[0].sprite = lv0Sprites[toyType];
         dkbAnims[0].runtimeAnimatorController = lv0AnimCtrls[toyType];
         coolH = dkbTimeCoolH;
@@ -216,14 +220,10 @@ public class GameManager : MonoBehaviour
             case 0:
                 if (exp >= expRange[0] - 1)
                 {
-                    uiManager.ExpStateReset();
-                    exp = 0;
-                    growthLevel = 1;
-                    uiManager.ChangeExpText();
-                    dkbObjs[0].SetActive(false);
-                    dkbObjs[1].SetActive(true);
-                    dkbSpriteRs[1].sprite = lv1Sprites[toyType];
-                    dkbAnims[1].runtimeAnimatorController = lv1AnimCtrls[toyType];
+                    isLvUp = true;
+                    exp++;
+                    uiManager.ExpStateUpdate();
+                    uiManager.lvUpBtn.SetActive(true);
                 }
                 else
                 {
@@ -234,18 +234,47 @@ public class GameManager : MonoBehaviour
             case 1:
                 if (exp >= expRange[1] - 1)
                 {
-                    print("성체됨");
-                    uiManager.GoYard(); // 성체 마당으로 보냄
-                    GameObject newDkbObj = Instantiate(lv2Prefabs[toyType], collectionGroup.transform);
-                    newDkbObj.transform.position = collectionGroup.transform.position;
-                    newDkbObj.transform.rotation = collectionGroup.transform.rotation;
-                    CareRoomReset();
+                    isLvUp = true;
+                    exp++;
+                    uiManager.ExpStateUpdate();
+                    uiManager.lvUpBtn.SetActive(true);
                 }
                 else
                 {
                     exp++;
                     uiManager.ExpStateUpdate();
                 }
+                break;
+        }
+    }
+
+    public void LvUpButton()
+    {
+        switch (growthLevel)
+        {
+            case 0:
+                growthLevel = 1;
+                uiManager.ExpStateReset();
+                exp = 0;
+                uiManager.ChangeExpText();
+                dkbObjs[0].SetActive(false);
+                dkbObjs[1].SetActive(true);
+                dkbSpriteRs[1].sprite = lv1Sprites[toyType];
+                dkbAnims[1].runtimeAnimatorController = lv1AnimCtrls[toyType];
+                isLvUp = false;
+                uiManager.lvUpBtn.SetActive(false);
+                break;
+            case 1:
+                print("성체됨");
+                if(!uiManager.goYardBtn.activeSelf)
+                    uiManager.goYardBtn.SetActive(true);
+                uiManager.GoYard(); // 성체 마당으로 보냄
+                GameObject newDkbObj = Instantiate(lv2Prefabs[toyType], collectionGroup.transform);
+                newDkbObj.transform.position = collectionGroup.transform.position;
+                newDkbObj.transform.rotation = collectionGroup.transform.rotation;
+                isLvUp = false;
+                uiManager.lvUpBtn.SetActive(false);
+                CareRoomReset();
                 break;
         }
     }
@@ -263,6 +292,9 @@ public class GameManager : MonoBehaviour
         dkbObjs[0].SetActive(false);
         dkbObjs[1].SetActive(false);
         uiManager.dkbSettingBtn.SetActive(true);
+        uiManager.expStateTMP.text = "";
+        uiManager.careCoolTime.text = "";
+        uiManager.ResetExpGroup();
         SetCareCoolTime();
     }
     

@@ -1,13 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AdventureSystem_Manager : MonoBehaviour
 {
-
-
-    [SerializeField] List<Adventure_Game> GameList;
+    [SerializeField] public List<Adventure_Game> GameList;
 
     public Adventure_Game curGame;
 
@@ -19,6 +19,7 @@ public class AdventureSystem_Manager : MonoBehaviour
     public GameObject Start_Counting;
     [SerializeField] Sprite[] Starting_Image;
 
+    //public Transform perfectGameGroup;
 
     void Start()
     {
@@ -27,15 +28,27 @@ public class AdventureSystem_Manager : MonoBehaviour
 
     // Update is called once per frame
 
-    public void PerfectGameStart()
+    private void Update()
     {
-        Adventure_Game newG = Instantiate(GameList[0], new Vector3(0, 0, -1.5f), Quaternion.identity);
-        curGame = newG;
-        StartCoroutine("GameStart_Counting", newG);
         if (curGame!=null)
         {
             curGame.GetComponent<Adventure_Game>().Play_MiniGame();
         }
+    }
+
+    public void PerfectGameStart()
+    {
+        GameManager._instance.uiManager.perfectGameStartBtn.SetActive(false);
+        StartCoroutine(GameManager._instance.uiManager.GameCountDown());
+        //Adventure_Game newG = Instantiate(GameList[0], perfectGameGroup);
+        Invoke("PerfectZone", 4f);
+    }
+
+    void PerfectZone()
+    {
+        GameList[0].gameObject.SetActive(true);
+        curGame = GameList[0];
+        StartCoroutine("GameStart_Counting", GameList[0]);
     }
 
     //-------------------------------------------
@@ -70,9 +83,11 @@ public class AdventureSystem_Manager : MonoBehaviour
 
 
 
-        Adventure_Game newG = Instantiate(GameList[num],new Vector3(0,0,-1.5f),Quaternion.identity);
-        curGame = newG;
-        StartCoroutine("GameStart_Counting", newG);
+        //Adventure_Game newG = Instantiate(GameList[num],new Vector3(0,0,-1.5f),Quaternion.identity);
+        //curGame = newG;
+        GameList[0].gameObject.SetActive(true);
+        curGame = GameList[0];
+        StartCoroutine("GameStart_Counting", GameList[0]);
 
     }
 
@@ -88,7 +103,7 @@ public class AdventureSystem_Manager : MonoBehaviour
             
         }
 
-         Start_Counting.GetComponent<SpriteRenderer>().sprite = null;
+        Start_Counting.GetComponent<SpriteRenderer>().sprite = null;
         Game.StartSetting();
     }
     //------------------------------------------------------------------

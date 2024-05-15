@@ -8,15 +8,19 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public GameManager gameManager;
-
+    public GameObject gameStartScene;
+    public GameObject gameIntroScene;
     public GameObject roomScene;
+    public GameObject miniGameScene;
+    public GameObject perfectGameScene;
     public GameObject yardScene;
-    
+
     //==============================================[ 안내 메시지 ]====================================================
     // 안내 메시지
     [Header("----[ Info Message ]")]
     public GameObject infoMessage;
     public TMP_Text infoMessageText;
+    private bool _isInfoTime;
 
     //==============================================[ 음식 UI ]======================================================
     // 먹이 상자 UI 변수
@@ -36,6 +40,10 @@ public class UIManager : MonoBehaviour
     public GameObject curGameStateGroup; // 현재 게임 순서에 따라 바뀌는 하단 점 상태 표시 그룹
     public GameObject curGameStatePrefab; // 하단 점 프리펩
     public Image curGameImage; // 현재 놀이 상자에 표시되는 게임 이미지
+
+    public GameObject perfectGameStartBtn;
+    public TMP_Text curPlayCountText;
+    public bool isMiniGameStart;
     
     //===============================================[ 시간 계산 ]====================================================
     
@@ -54,7 +62,7 @@ public class UIManager : MonoBehaviour
     public Button feedBtn;  // 먹이 버튼
     public Button playBtn;  // 놀기 버튼
 
-    // public GameObject shopPanel; // 상점 패널
+    public GameObject shopPanel; // 상점 패널
     public GameObject toyPanel;
     public TMP_Text toyInfoText; // 장난감 정보 텍스트
     public TMP_Text toyNameText; // 장난감 이름 텍스트
@@ -71,9 +79,19 @@ public class UIManager : MonoBehaviour
 
     public GameObject dkbSettingBtn; // 도깨비 세팅 버튼
 
+    public GameObject countDownPanel;
+    public TMP_Text countDownText;
+    public bool isCountDown;
+
+    public TMP_Text playerName;
+    public GameObject playerNameInputGroup;
+    public TMP_Text curCoinText;
+    public int perfectResultCoin;
+
     //==============================================[ 기타 ]==========================================================
 
     public bool isPopUp;
+    public bool isSetToy;
     
     // ==============================================================================================================
 
@@ -84,17 +102,28 @@ public class UIManager : MonoBehaviour
         foodPanel.SetActive(false);
         playBoxPanel.SetActive(false);
         
-        
+        gameStartScene.SetActive(true);
+        gameIntroScene.SetActive(false);
+        roomScene.SetActive(false);
+        miniGameScene.SetActive(false);
+        perfectGameScene.SetActive(false);
+        yardScene.SetActive(false);
+
         AddCurExpState();
         ChangeExpText();
     }
 
+    private void Start()
+    {
+        curCoinText.text = GameManager._instance.coin.ToString();
+        curPlayCountText.text = String.Format("{0:D1}/{1:D1}", gameManager.playCount, gameManager.maxPlayCount);
+    }
     // ==============================================================================================================
 
     // 먹이 함수 1. 배부를 때는 밥X, 아닐 때 먹이 상자 Enable
     public void FoodPanelButton()
     {
-        if(isPopUp)
+        if(isPopUp || isSetToy)
             return;
         
         for(int i = 0; i < foodCountText.Length; i++)
@@ -192,7 +221,7 @@ public class UIManager : MonoBehaviour
     // 케어 함수 Play. 
     public void PlayBoxButton()
     {
-        if(isPopUp)
+        if(isPopUp || isSetToy)
             return;
         
         if (gameManager.playCount <= 0)
@@ -218,8 +247,26 @@ public class UIManager : MonoBehaviour
     public void PlayBoxAccept()
     {
         gameManager.playCount--;
+        curPlayCountText.text = String.Format("{0:D1}/{1:D1}", gameManager.playCount, gameManager.maxPlayCount);
         playBoxPanel.SetActive(false);
         isPopUp = false;
+        for (int i = 0; i < playTypeSprites.Length; i++)
+        {
+            if (curGameImage.sprite == playTypeSprites[i])
+            {
+                switch (i)
+                {
+                    case 0:
+                        miniGameScene.SetActive(true);
+                        isMiniGameStart = false;
+                        CircleManager.Instance.GameStart();
+                        break;
+                    case 1:
+                        perfectGameScene.SetActive(true);
+                        break;
+                }
+            }
+        }
     }
     
     public void PlayBoxCancel()
@@ -326,12 +373,16 @@ public class UIManager : MonoBehaviour
     // ==============================================================================================================
     
     // 게임 내 안내메시지
-    private IEnumerator GameInfoMessage(string infoMessageStr)
+    public IEnumerator GameInfoMessage(string infoMessageStr)
     {
+        if (_isInfoTime)
+            yield break;
+        _isInfoTime = true;
         infoMessage.SetActive(true);
         infoMessageText.text = infoMessageStr;
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         infoMessage.SetActive(false);
+        _isInfoTime = false;
     }
 
     // UI
@@ -376,7 +427,7 @@ public class UIManager : MonoBehaviour
     
 
     // ==============================================================================================================
-    
+    // 도깨비 장난감 놓는 +버튼 상호작용시
     public void SetDokkaebiButton()
     {
         if(isPopUp)
@@ -386,8 +437,7 @@ public class UIManager : MonoBehaviour
         isPopUp = true;
     }
     
-
-    // 
+    // 장난감 놓는 패널 닫기
     public void ToyBoxCancel()
     {
         toyPanel.SetActive(false);
@@ -399,7 +449,7 @@ public class UIManager : MonoBehaviour
         gameManager.toyType = 100;
     }
 
-    // 
+    // 장난감 패널 열 때 아이템 목록 설정
     public void ToyBoxItem(int toyIndex)
     {
         for (int i = 0; i < toyItemBtn.Length; i++)
@@ -441,7 +491,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // 
+    // 장난감 선택 
     public void ToyBoxAccept()
     {
         if (gameManager.toyType == 100)
@@ -458,11 +508,28 @@ public class UIManager : MonoBehaviour
         
         // 도깨비 장난감 설치
         dkbSettingBtn.SetActive(false);
-        gameManager.isGrowStart = true;
         gameManager.dkbToy.SetActive(true);
         SpriteRenderer dokkaebiToySpriteRenderer = gameManager.dkbToy.GetComponent<SpriteRenderer>();
         dokkaebiToySpriteRenderer.sprite = toyItemO[gameManager.toyType];
+
+        gameManager.coolH = gameManager.toyTimeCoolH;
+        gameManager.coolM = gameManager.toyTimeCoolM;
+        gameManager.coolS = gameManager.toyTimeCoolS;
+        gameManager.SetCareCoolTime();
+        gameManager.isGrowStart = true;
     }
+    
+    // ==============================================================================================================
+
+    public void ShopBoxPanelBtn()
+    {
+        if(isPopUp || isSetToy)
+            return;
+        isPopUp = true;
+        shopPanel.SetActive(true);
+    }
+    
+    // ==============================================================================================================
 
     public void GoYard()
     {
@@ -476,7 +543,47 @@ public class UIManager : MonoBehaviour
         roomScene.SetActive(true);
         yardScene.SetActive(false);
         gameManager.collectionGroup.SetActive(false);
+        playerName.text = PlayerPrefs.GetString("PlayerName");
+        isSetToy = true;
     }
 
+    public void GoIntro()
+    {
+        gameStartScene.SetActive(false);
+        gameIntroScene.SetActive(true);
+        playerNameInputGroup.SetActive(true);
+    }
+
+    // ==============================================================================================================
     
+    public IEnumerator GameCountDown()
+    {
+        countDownPanel.SetActive(true);
+        isCountDown = true;
+        countDownText.text = "3";
+        yield return new WaitForSeconds(1);
+        countDownText.text = "2";
+        yield return new WaitForSeconds(1);
+        countDownText.text = "1";
+        yield return new WaitForSeconds(1);
+        countDownText.text = "Go!";
+        yield return new WaitForSeconds(1);
+        countDownPanel.SetActive(false);
+        isCountDown = false;
+    }
+
+    public void SetCurGameCoinText()
+    {
+        curCoinText.text = GameManager._instance.coin.ToString();
+    }
+    
+    public void PerfectGameResultBtn()
+    {
+        //Ex)    GetGold( Coin * MaxCombo_Count );
+        // Go Main Game Screen
+        GameManager._instance.coin += perfectResultCoin;
+        perfectGameScene.SetActive(false);
+        perfectGameStartBtn.SetActive(true);
+        SetCurGameCoinText();
+    }
 }

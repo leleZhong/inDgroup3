@@ -14,6 +14,7 @@ public class CircleManager : MonoBehaviour
     public GameObject[] _circles;
     public Button _leftButton;
     public Button _rightButton;
+    public GameObject startBtn;
     public Transform[] _position;
     public float _speed;
     Queue<GameObject> _circleQueue = new Queue<GameObject>();
@@ -31,9 +32,41 @@ public class CircleManager : MonoBehaviour
     float _timeLimit = 20f; // 초기 제한 시간 설정
     float _timeRemaining;   // 남은 시간
 
-    void Awake()
+    private int finalScore;
+    
+
+    
+
+    void Start()
+    {
+        
+    }
+
+    void Update()
+    {
+        if(GameManager._instance.uiManager.isCountDown)
+            return;
+        
+        if (GameManager._instance.uiManager.isMiniGameStart)
+        {
+            _timeRemaining -= Time.deltaTime;
+            MiniUIManager.Instance.UpdateTimer(_timeRemaining / _timeLimit);
+        
+            if (_timeRemaining <= 0)
+            {
+                GameOver();
+            }
+        }
+
+    }
+
+    private void OnEnable()
     {
         Instance = this;
+    }
+
+    public void GameStart()
+    {
 
         _gameOverPanel.SetActive(false);
         _score = 0;
@@ -49,27 +82,20 @@ public class CircleManager : MonoBehaviour
 
         // 초기 원소 추가
         AddInitialCircles();
-    }
-
-    void Start()
-    {
+        
         MovePosition();
         OnScoreChange?.Invoke(_score);
         OnLevelChange?.Invoke(_level); // 초기 레벨 알림
-    }
-
-    void Update()
-    {
-        _timeRemaining -= Time.deltaTime;
-        MiniUIManager.Instance.UpdateTimer(_timeRemaining / _timeLimit);
         
-        if (_timeRemaining <= 0)
-        {
-            GameOver();
-        }
-
+        startBtn.SetActive(true);
     }
-
+    public void MiniGameStart()
+    {
+        startBtn.SetActive(false);
+        StartCoroutine(GameManager._instance.uiManager.GameCountDown());
+        GameManager._instance.uiManager.isMiniGameStart = true;
+    }
+    
     void AddInitialCircles()
     {
         for (int i = 0; i < 5; i++)
@@ -192,8 +218,15 @@ public class CircleManager : MonoBehaviour
     void GameOver()
     {
         _gameOverPanel.SetActive(true);
-        int finalScore = CalculateFinalScore();
+        finalScore = CalculateFinalScore();
         MiniUIManager.Instance.ShowFinalScore(finalScore);
+    }
+
+    public void GoRoomScene()
+    {
+        GameManager._instance.coin += finalScore;
+        GameManager._instance.uiManager.miniGameScene.SetActive(false);
+        GameManager._instance.uiManager.SetCurGameCoinText();
     }
 
     int CalculateFinalScore()

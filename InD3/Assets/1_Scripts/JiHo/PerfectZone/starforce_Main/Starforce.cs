@@ -46,6 +46,8 @@ public class Starforce : Adventure_Game
     public GameObject Result_Panel;
     public TextMeshProUGUI Result;
     public TextMeshProUGUI Final_Result;
+
+    public int gameResultCoin;
     private void Start()
     {
         //Timer_Slider
@@ -68,8 +70,6 @@ public class Starforce : Adventure_Game
 
     public override void Play_MiniGame()
     {
-
-
         if (Input.GetMouseButtonDown(0) && adventureSystem_Manager.Start_Counting.GetComponent<SpriteRenderer>().sprite == null && Result_Panel.activeSelf==false)
         {
             UPPoint.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -190,20 +190,18 @@ public class Starforce : Adventure_Game
         }
     }
 
-    public  void Game_Result()
+    public void Game_Result()
     {
         //Coin = MaxCombo_Count * score
         Result_Panel.SetActive(true);
         Result.text = Coin.ToString()+"\n"+  MaxCombo_Count.ToString();
-        Final_Result.text = (Coin * MaxCombo_Count).ToString();
-
+        gameResultCoin = Coin * MaxCombo_Count;
+        Final_Result.text = gameResultCoin.ToString();
+        GameManager._instance.uiManager.perfectResultCoin = gameResultCoin;
+        gameObject.SetActive(false);
     }
 
-    public void Game_Result_Button()
-    {
-        //Ex)    GetGold( Coin * MaxCombo_Count );
-        // Go Main Game Screen
-    }
+    
 
     private void OnTriggerExit2D(Collider2D collision)
     {

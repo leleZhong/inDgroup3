@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager _instance;
+    public static GameManager _instance;
     public UIManager uiManager;
+    public AdventureSystem_Manager adventureSystemManager;
     
     // 먹이 변수
     public int foodType = 100; // 음식 종류, 아무것도 선택하지 않았을 때의 값을 미리 선언
@@ -14,6 +16,8 @@ public class GameManager : MonoBehaviour
     // 장난감 변수
     public int toyType = 100; // 장난감 종류, 아무것도 선택하지 않았을 때의 값을 미리 선언
     public GameObject dkbToy; // 화면에 표시되는 장난감
+
+    public int coin;
 
     //===============================================[ 시간 계산 ]=========================================
     // 시간 계산 변수
@@ -24,7 +28,13 @@ public class GameManager : MonoBehaviour
     private float _remainingTimeS; // 화면에 표시되는 남은 쿨타임 초
     public float coolH; // 쿨타임 설정 시간
     public float coolM; // 쿨타임 설정 분
-    public float coolS = 5f; // 쿨타임 설정 초
+    public float coolS; // 쿨타임 설정 초
+    public float toyTimeCoolH;
+    public float toyTimeCoolM;
+    public float toyTimeCoolS;
+    public float dkbTimeCoolH;
+    public float dkbTimeCoolM;
+    public float dkbTimeCoolS;
 
     //==============================================[ 케어 지수, 정도, UI ]========================================
     // 케어 수치 변수
@@ -75,20 +85,22 @@ public class GameManager : MonoBehaviour
             foodCount[i] = 0;
         }
         
-        // 임시로 n개씩 추가
-        foodCount[0] = 10; 
-        foodCount[1] = 10; 
-        foodCount[2] = 10;
-        foodCount[3] = 10;
+        // 튜토리얼 진행 보상
+        foodCount[0] = 5; 
+
     }
 
     private void Start()
     {
-        SetCareCoolTime();
+        
     }
 
     private void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            print("체크");
+        }
         // 키우기가 시작됐을 때(도깨비 장난감을 놓은 순간) 쿨다운 시작
         if(!isGrowStart)
             return;
@@ -98,7 +110,7 @@ public class GameManager : MonoBehaviour
     // ==============================================================================================================
 
     // 케어 함수. 케어 쿨타임
-    void SetCareCoolTime()
+    public void SetCareCoolTime()
     {
         // 장치에 현재 시, 분, 초에 설정 쿨타임을 더함
         PlayerPrefs.SetFloat("EndHour", timerManager._dataTime.Hour + coolH);
@@ -126,16 +138,25 @@ public class GameManager : MonoBehaviour
             _remainingTimeM = 60f;
         }
         // 쿨타임 감소 표출
-        uiManager.careCoolTime.text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)_remainingTimeH, (int)_remainingTimeM, (int)_remainingTimeS);
+        if (_remainingTimeM > 0)
+        {
+            uiManager.careCoolTime.text = string.Format("{0:D}",(int)_remainingTimeM);
+        }
+        else if(_remainingTimeM <= 0)
+        {
+            uiManager.careCoolTime.text = string.Format("{0:D}",(int)_remainingTimeS);
+        }
+        
 
-        // 쿨타임이 끝났을 때 갖가지 초기
+        // 쿨타임이 끝났을 때 갖가지 초기화
         if (_remainingTimeS <= 0 && _remainingTimeM <= 0 && _remainingTimeH <= 0)
         {
             // 도깨비 장난감이 활성화 돼있을 때
             if (dkbToy.activeSelf)
             {
                 WhatDokkaebi();    
-                SetCareCoolTime(); 
+                SetCareCoolTime();
+                playCount = maxPlayCount;
                 return;
             }
             ChangeStateByFoodAmount();
@@ -148,10 +169,14 @@ public class GameManager : MonoBehaviour
     void WhatDokkaebi()
     {
         uiManager.isPopUp = false;
+        uiManager.isSetToy = false;
         dkbObjs[0].SetActive(true);
         dkbToy.SetActive(false);
         dkbSpriteRs[0].sprite = lv0Sprites[toyType];
         dkbAnims[0].runtimeAnimatorController = lv0AnimCtrls[toyType];
+        coolH = dkbTimeCoolH;
+        coolM = dkbTimeCoolM;
+        coolS = dkbTimeCoolS;
     }
     
     // 포만도에 의한 스탯 변화 
@@ -240,5 +265,5 @@ public class GameManager : MonoBehaviour
         uiManager.dkbSettingBtn.SetActive(true);
         SetCareCoolTime();
     }
-
+    
 }

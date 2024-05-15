@@ -9,7 +9,7 @@ public class Adventure_Game : MonoBehaviour
   
     private void Awake()
     {
-        adventureSystem_Manager = GameObject.Find("AdventureSystem_Manager").GetComponent<AdventureSystem_Manager>();
+        adventureSystem_Manager = GameObject.Find("PerfectZoneSystem_Manager").GetComponent<AdventureSystem_Manager>();
     }
 
     public virtual void  Play_MiniGame()

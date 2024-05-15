@@ -47,6 +47,7 @@ public class Shop : MonoBehaviour
     public void ShopCancel_Btn()
     {
         _Shop_Panel.SetActive(false);
+        GameManager._instance.uiManager.isPopUp = false;
     }
     // ������ ��ư
     public void ShopFood_Btn()
@@ -57,8 +58,10 @@ public class Shop : MonoBehaviour
     //���׸����� ��ư
     public void Shopinterior_Btn()
     {
-        _ShopFood.SetActive(false);
-        _Shopinterior.SetActive(true);
+        StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("준비중입니다."));
+
+        //_ShopFood.SetActive(false);
+        //_Shopinterior.SetActive(true);
     }
 
 
@@ -318,24 +321,37 @@ public class Shop : MonoBehaviour
     {
         if (itemtype == 0)
         {
-            var result = FoodGet();
-            Debug.Log($"������Ÿ��: {itemtype}, ����: {result.Item1}, ����: {result.Item2}, ����: {result.Item3}");
+            foodPrice = foodPrice_A[foodtype];
+            //var result = FoodGet();
+            //Debug.Log($"������Ÿ��: {itemtype}, ����: {result.Item1}, ����: {result.Item2}, ����: {result.Item3}");
+            if (foodPrice < GameManager._instance.coin)
+            {
+                // 돈 부족
+                StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("코인이 부족합니다."));
+            }
+            else if (foodPrice >= GameManager._instance.coin)
+            {
+                GameManager._instance.foodCount[foodtype] += foodQuantity;
+                GameManager._instance.coin -= foodPrice;
+                _Purchase_Panel.SetActive(false);
+                GameManager._instance.uiManager.shopPanel.SetActive(false);
+                GameManager._instance.uiManager.isPopUp = false;
+                GameManager._instance.uiManager.SetCurGameCoinText();
+            }
         }
         else if (itemtype == 1)
         {
             var interioGet = InterioGet();
             Debug.Log($"������Ÿ��: {itemtype}, ����: {interioGet.Item1}, ����: {interioGet.Item2}, ����: {interioGet.Item3}");
+            _Purchase_Panel.SetActive(false);
         }
-       
-        _Purchase_Panel.SetActive(false);
     }
 
     // ����â ��� ��ư
     public void Purchase_Cancel_Btn()
     {
-        
         _Purchase_Panel.SetActive(false);
-
+        GameManager._instance.uiManager.isPopUp = false;
     }
 
 

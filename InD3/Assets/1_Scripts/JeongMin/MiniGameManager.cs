@@ -14,10 +14,8 @@ public class MiniGameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-
-        _playerNamePanel.SetActive(true);
-        _monsterNamePanel.SetActive(false);
     }
+    
     
     public void Save()
     {
@@ -29,7 +27,8 @@ public class MiniGameManager : MonoBehaviour
             PlayerPrefs.SetString("PlayerName", inputField.text);
 
             _playerNamePanel.SetActive(false);
-            _monsterNamePanel.SetActive(true);
+            GameManager._instance.uiManager.gameIntroScene.SetActive(false);
+            GameManager._instance.uiManager.GoRoom();
         }
         else if (_monsterNamePanel.activeSelf)
         {

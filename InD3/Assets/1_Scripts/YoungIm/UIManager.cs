@@ -22,6 +22,10 @@ public class UIManager : MonoBehaviour
     public TMP_Text infoMessageText;
     private bool _isInfoTime;
 
+    public GameObject helpRoomScene;
+    public GameObject helpLRGameScene;
+    public GameObject helpPerfectGameScene;
+    
     //==============================================[ 음식 UI ]======================================================
     // 먹이 상자 UI 변수
     [Header("----[ Food UI ]")]
@@ -29,7 +33,7 @@ public class UIManager : MonoBehaviour
     public GameObject foodPanel; // 먹이 상자 패널 UI
     public TMP_Text foodInfoText; // 음식 정보 텍스트
     public TMP_Text foodNameText; // 음식 이름 텍스트
-    public TMP_Text[] foodCountText; // 음식 개수 표출 텍스트
+    public TMP_Text foodCountText; // 음식 개수 표출 텍스트
     public Image[] foodItem; // 음식 이미지
     
     //==============================================[ 놀이 UI ]======================================================
@@ -106,6 +110,7 @@ public class UIManager : MonoBehaviour
         infoMessage.SetActive(false);
         foodPanel.SetActive(false);
         playBoxPanel.SetActive(false);
+        shopPanel.SetActive(false);
         
         gameStartScene.SetActive(true);
         gameIntroScene.SetActive(false);
@@ -113,6 +118,10 @@ public class UIManager : MonoBehaviour
         miniGameScene.SetActive(false);
         perfectGameScene.SetActive(false);
         yardScene.SetActive(false);
+        
+        helpRoomScene.SetActive(false);
+        helpLRGameScene.SetActive(false);
+        helpPerfectGameScene.SetActive(false);
         
         goYardBtn.SetActive(false);
     }
@@ -122,6 +131,46 @@ public class UIManager : MonoBehaviour
         curCoinText.text = GameManager._instance.coin.ToString();
         curPlayCountText.text = String.Format("{0:D1}/{1:D1}", gameManager.playCount, gameManager.maxPlayCount);
     }
+
+    private void Update()
+    {
+        curPlayCountText.text = String.Format("{0:D1}/{1:D1}", gameManager.playCount, gameManager.maxPlayCount);
+    }
+    
+    // ==============================================================================================================
+
+    public void HelpOpenBtn(int orderIndex) // 0: room / 1: LRGame / 2: PerfectGame
+    {
+        switch (orderIndex)
+        {
+            case 0:
+                helpRoomScene.SetActive(true);
+                break;
+            case 1:
+                helpLRGameScene.SetActive(true);
+                break;
+            case 2:
+                helpPerfectGameScene.SetActive(true);
+                break;
+        }
+    }
+    
+    public void HelpCloseBtn(int orderIndex) // 0: room / 1: LRGame / 2: PerfectGame
+    {
+        switch (orderIndex)
+        {
+            case 0:
+                helpRoomScene.SetActive(false);
+                break;
+            case 1:
+                helpLRGameScene.SetActive(false);
+                break;
+            case 2:
+                helpPerfectGameScene.SetActive(false);
+                break;
+        }
+    }
+    
     // ==============================================================================================================
 
     // 먹이 함수 1. 배부를 때는 밥X, 아닐 때 먹이 상자 Enable
@@ -130,10 +179,12 @@ public class UIManager : MonoBehaviour
         if(isPopUp || isSetToy)
             return;
         
-        for(int i = 0; i < foodCountText.Length; i++)
+        /*for(int i = 0; i < foodCountText.Length; i++)
         {
             foodCountText[i].text = gameManager.foodCount[i].ToString();
-        }
+        }*/
+        
+        
 
         foodPanel.SetActive(true);
         isPopUp = true;
@@ -161,25 +212,26 @@ public class UIManager : MonoBehaviour
             if (i == foodIndex)
             {
                 foodItem[foodIndex].color = new Color(0.5f, 0.5f, 0.5f, 1);
+                foodCountText.text = String.Format("수량: {0:D}", gameManager.foodCount[foodIndex]);
                 switch (foodIndex)
                 {
                     case 0:
-                        foodNameText.text = "0번 음식";
+                        foodNameText.text = "기본먹이";
                         foodInfoText.text = "0번이에유";
                         gameManager.foodType = 0;
                         break;
                     case 1:
-                        foodNameText.text = "1번 음식";
+                        foodNameText.text = "김치볶음밥";
                         foodInfoText.text = "1번이에유";
                         gameManager.foodType = 1;
                         break;
                     case 2:
-                        foodNameText.text = "2번 음식";
+                        foodNameText.text = "바나나우유";
                         foodInfoText.text = "2번이에유";
                         gameManager.foodType = 2;
                         break;
                     case 3:
-                        foodNameText.text = "3번 음식";
+                        foodNameText.text = "핫케이크";
                         foodInfoText.text = "3번이에유";
                         gameManager.foodType = 3;
                         break;
@@ -251,7 +303,6 @@ public class UIManager : MonoBehaviour
     public void PlayBoxAccept()
     {
         gameManager.playCount--;
-        curPlayCountText.text = String.Format("{0:D1}/{1:D1}", gameManager.playCount, gameManager.maxPlayCount);
         playBoxPanel.SetActive(false);
         isPopUp = false;
         for (int i = 0; i < playTypeSprites.Length; i++)
@@ -499,8 +550,8 @@ public class UIManager : MonoBehaviour
                 switch (gameManager.toyType)
                 {
                     case 0:
-                        toyNameText.text = "0번 장난감";
-                        toyInfoText.text = "0번이에유";
+                        toyNameText.text = "장난감 공";
+                        toyInfoText.text = "장난스러운 성격의 도깨비가 좋아할 것 같다.";
                         break;
                     case 1:
                         toyNameText.text = "1번 장난감";

@@ -109,5 +109,8 @@ public class AdventureSystem_Manager : MonoBehaviour
     //------------------------------------------------------------------
 
 
-
+    public void Enable_Obj(GameObject g)
+    {
+        g.SetActive(false);
+    }
 }

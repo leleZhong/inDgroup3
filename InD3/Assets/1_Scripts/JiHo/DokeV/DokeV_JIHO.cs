@@ -6,6 +6,8 @@ using TMPro;
 
 public class DokeV_JIHO : MonoBehaviour
 {
+    public static DokeV_JIHO instance;
+
     public GameObject DokeV;
     // Dialog
     public TextMeshProUGUI Dialog_TMP;
@@ -52,6 +54,11 @@ public class DokeV_JIHO : MonoBehaviour
    public Playing CurPlaying;
    public Playing BeforePlaying;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
         CurPlaying = Playing.none;
@@ -59,6 +66,9 @@ public class DokeV_JIHO : MonoBehaviour
    
     void Update()
     {
+       
+
+
         switch (CurPlaying)
         {
             case Playing.ball:
@@ -93,11 +103,40 @@ public class DokeV_JIHO : MonoBehaviour
         
     }
 
+    //Select Random_Event
+    public void Random_Event()
+    {
+     
+        int a = Random.Range(0, 5);
+        switch(a)
+        {
+            case 0:
+                CurPlaying = Playing.ball;
+                break;
+            case 1:
+                CurPlaying = Playing.food;
+                break;
+            case 2:
+                CurPlaying = Playing.glass;
+                break;
+            case 3:
+                CurPlaying = Playing.wash;
+                break;
+            case 4:
+                CurPlaying = Playing.none;
+                break;
+        }
+    }
+
     //----------------------Dialog---------------------------------------------
     public void Dialog_Text_F(string t)
     {
-        Dialog_TMP.text = t;
-        StartCoroutine("Distoty_Dialog");
+        if(Dialog_TMP!=null)
+        {
+            Dialog_TMP.text = t;
+            StartCoroutine("Distoty_Dialog");
+        }
+       
     }
 
     IEnumerator Distoty_Dialog()
@@ -188,11 +227,11 @@ public class DokeV_JIHO : MonoBehaviour
     {
       
         Mouse_Pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        hit = Physics2D.Raycast(Mouse_Pos, Vector2.zero, 0);
+       // hit = Physics2D.Raycast(Mouse_Pos, Vector2.zero, 0);
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (hit!=false)
+            //if (hit!=false)
             {
                 MouseClick_Pos = Mouse_Pos;
                 print("마우스 위치 저장함");
@@ -278,9 +317,9 @@ public class DokeV_JIHO : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Mouse_Pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            hit = Physics2D.Raycast(Mouse_Pos, Vector2.zero, 0);
+            //hit = Physics2D.Raycast(Mouse_Pos, Vector2.zero, 0);
 
-            if (hit != false)
+            //if (hit != false)
             {
 
                 Color c = dirty_Dummy.GetComponent<SpriteRenderer>().color;

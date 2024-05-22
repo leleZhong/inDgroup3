@@ -14,6 +14,7 @@ public class MiniUIManager : MonoBehaviour
     public GameObject[] _life;
     public Image _timer;
     public GameObject[] _levelCircles;
+    public GameObject _levelUp;
 
     void Awake()
     {
@@ -23,6 +24,8 @@ public class MiniUIManager : MonoBehaviour
         {
             _levelCircles[i].SetActive(false);
         }
+
+        _levelUp.SetActive(false);
     }
 
     public void UpdateTimer(float fillAmount)
@@ -33,7 +36,7 @@ public class MiniUIManager : MonoBehaviour
     public void ShowFinalScore(int score)
     {
         Debug.Log("ShowFinalScore called with score: " + score); // 로그 추가
-        _finalScore.text = "보상 : " + score.ToString() + "코인";
+        _finalScore.text = score.ToString() + "코인";
     }
 
     void OnEnable()
@@ -63,6 +66,13 @@ public class MiniUIManager : MonoBehaviour
         }
     }
 
+    IEnumerator ShowLevelUpForSeconds(float seconds)
+    {
+        _levelUp.SetActive(true);
+        yield return new WaitForSeconds(seconds);
+        _levelUp.SetActive(false);
+    }
+
     void OnLevelChange(int level)
     {
         switch (level)
@@ -70,14 +80,17 @@ public class MiniUIManager : MonoBehaviour
             case 1:
                 _levelCircles[0].SetActive(true);
                 _levelCircles[1].SetActive(true);
+                StartCoroutine(ShowLevelUpForSeconds(0.3f));
                 break;
             case 2:
                 _levelCircles[2].SetActive(true);
                 _levelCircles[3].SetActive(true);
+                StartCoroutine(ShowLevelUpForSeconds(0.3f));
                 break;
             case 3:
                 _levelCircles[4].SetActive(true);
                 _levelCircles[5].SetActive(true);
+                StartCoroutine(ShowLevelUpForSeconds(0.3f));
                 break;
         }
     }

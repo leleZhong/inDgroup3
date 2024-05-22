@@ -90,12 +90,7 @@ public class GameManager : MonoBehaviour
         foodCount[0] = 5; 
 
     }
-
-    private void Start()
-    {
-        
-    }
-
+    
     private void Update()
     {
         uiManager.loveFilledImage.fillAmount = (float)loveAmount / 100;
@@ -243,6 +238,7 @@ public class GameManager : MonoBehaviour
                 {
                     exp++;
                     uiManager.ExpStateUpdate();
+                    DokeV_JIHO.instance.Random_Event();
                 }
                 break;
         }
@@ -263,6 +259,7 @@ public class GameManager : MonoBehaviour
                 dkbAnims[1].runtimeAnimatorController = lv1AnimCtrls[toyType];
                 isLvUp = false;
                 uiManager.lvUpBtn.SetActive(false);
+                DokeV_JIHO.instance.Random_Event();
                 break;
             case 1:
                 print("성체됨");
@@ -297,5 +294,14 @@ public class GameManager : MonoBehaviour
         uiManager.ResetExpGroup();
         SetCareCoolTime();
     }
-    
+
+    public void LoveAmountUp()
+    {
+        loveAmount += 10;
+    }
+
+    public void FeedAmountUp()
+    {
+        feedAmount += 10;
+    }
 }

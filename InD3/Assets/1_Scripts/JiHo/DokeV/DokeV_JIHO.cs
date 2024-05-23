@@ -39,8 +39,13 @@ public class DokeV_JIHO : MonoBehaviour
     [SerializeField] GameObject Clean_Dummy;
 
 
-    //tired
+    //ball
+    [SerializeField] GameObject ball_Obj;
+     GameObject curBall_Obj;
 
+    //audio
+    public AudioSource dokeVSound;
+    public AudioClip [] dokeVEffect;
     public enum Playing
     {
         none,
@@ -57,6 +62,7 @@ public class DokeV_JIHO : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        SoundManager.instance.Add_Sound(dokeVSound, "Effect");
     }
 
     private void Start()
@@ -66,9 +72,7 @@ public class DokeV_JIHO : MonoBehaviour
    
     void Update()
     {
-       
-
-
+      
         switch (CurPlaying)
         {
             case Playing.ball:
@@ -106,73 +110,31 @@ public class DokeV_JIHO : MonoBehaviour
     //Select Random_Event
     public void Random_Event()
     {
-     
-        int a = Random.Range(0, 5);
-        switch(a)
+         if(CurPlaying==Playing.none)
         {
-            case 0:
-                CurPlaying = Playing.ball;
-                break;
-            case 1:
-                CurPlaying = Playing.food;
-                break;
-            case 2:
-                CurPlaying = Playing.glass;
-                break;
-            case 3:
-                CurPlaying = Playing.wash;
-                break;
-            case 4:
-                CurPlaying = Playing.none;
-                break;
-        }
-    }
-
-    //----------------------Dialog---------------------------------------------
-    public void Dialog_Text_F(string t)
-    {
-        if(Dialog_TMP!=null)
-        {
-            Dialog_TMP.text = t;
-            StartCoroutine("Distoty_Dialog");
+            int a = Random.Range(0, 5);
+            switch (a)
+            {
+                case 0:
+                    CurPlaying = Playing.ball;
+                    break;
+                case 1:
+                    CurPlaying = Playing.food;
+                    break;
+                case 2:
+                    CurPlaying = Playing.glass;
+                    break;
+                case 3:
+                    CurPlaying = Playing.wash;
+                    break;
+                case 4:
+                    CurPlaying = Playing.none;
+                    break;
+            }
         }
        
     }
 
-    IEnumerator Distoty_Dialog()
-    {
-        Dialog_TMP.transform.parent.gameObject.SetActive(true);
-        Color c = Dialog_TMP.GetComponent<TextMeshProUGUI>().color;
-        c.a = 1;
-        Dialog_TMP.GetComponent<TextMeshProUGUI>().color = c;
-
-        while (true)
-        {
-            yield return new WaitForSeconds(0.1f);
-
-            c.a -= 0.1f;
-            Dialog_TMP.GetComponent<TextMeshProUGUI>().color = c;
-            if(c.a<=0)
-            {
-                break;
-            }
-        }
-        Dialog_TMP.transform.parent.gameObject.SetActive(false);
-    }
-
-    public bool DoKev_Staute()//놀기를 눌렀을 때 피곤한지 확인
-    {
-        if (CurPlaying != Playing.tired)
-        {
-            //피곤하지않다면 놀수있다
-            return true;
-        }
-        else
-        {
-            
-            return false;
-        }
-    }
 
     public void DoKeV_Event()
     {
@@ -189,15 +151,16 @@ public class DokeV_JIHO : MonoBehaviour
                 Color c = new Color(1, 1, 1, 1);
                 dirty_Dummy.SetActive(true);
                 dirty_Dummy.gameObject.GetComponent<SpriteRenderer>().color = c;
-                Dialog_Text_F("도깨비가 더러워보인다");
+               
+                StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("도깨비가 더러워보인다 터치해서 깨끗하게 닦아주자"));
                 break;
 
             case Playing.glass:
                 CurPlaying = Playing.glass;
                 push_CurTime = push_Time;
                 ani.SetInteger("Glass", 1);
-                Dialog_Text_F("도깨비가 답답해 보인다"); 
-
+                
+                StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("도깨비가 답답해 보인다 유리병을 때겨 빼주자"));
 
 
                 break;
@@ -206,16 +169,13 @@ public class DokeV_JIHO : MonoBehaviour
                 CurPlaying = Playing.food;
                 ani.SetInteger("Food", 1);
                 Invoke("Eated_Food", 5);
-                Dialog_Text_F("도깨비가 배불러보인다");
+                
+                StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("도깨비가 뭘 주워먹은 듯하다 배가불러보인다"));
 
                 //Inven _ Get _ Food
                 break;
 
-            case Playing.tired:
-                CurPlaying = Playing.tired;
-                ani.SetInteger("Tired", 1);
-                Dialog_Text_F("도깨비가 지쳐서 놀기 싫어하는거같다");
-                break;
+           
         }
 
         BeforePlaying = CurPlaying;
@@ -289,6 +249,9 @@ public class DokeV_JIHO : MonoBehaviour
                 {
                     Destroy(curGlass);
                     CurPlaying = Playing.none;
+                    dokeVSound.clip=dokeVEffect[1];
+                    dokeVSound.Play();
+                    GameManager._instance.LoveAmountUp();
                     break;
                 }
 
@@ -300,11 +263,14 @@ public class DokeV_JIHO : MonoBehaviour
     //-------------------------------------------------Food-------------------------------------------
     void Eated_Food()//코루틴으로 실행
     {
+        if (CurPlaying != Playing.none)
+        {
+            GameManager._instance.FeedAmountUp();
 
-        //음식 하나 줄이기
-
-        ani.SetInteger("Food",0);
-        CurPlaying = Playing.none;
+            ani.SetInteger("Food", 0);
+            CurPlaying = Playing.none;
+        }
+           
     }
 
     //-------------------------------------------------Food-------------------------------------------
@@ -332,6 +298,9 @@ public class DokeV_JIHO : MonoBehaviour
                     dirty_Dummy.SetActive(false);
                     Clean_Dummy.SetActive(true);
 
+                    dokeVSound.clip = dokeVEffect[0];
+                    dokeVSound.pitch = 1;
+                    dokeVSound.Play();
                     Invoke("OffDummy", 2);
                 }
 
@@ -342,48 +311,72 @@ public class DokeV_JIHO : MonoBehaviour
 
     void OffDummy()//코루틴 실행
     {
-        Clean_Dummy.SetActive(false);
-        CurPlaying = Playing.none;
+        if(CurPlaying!= Playing.none)
+        {
+            Clean_Dummy.SetActive(false);
+            GameManager._instance.LoveAmountUp();
+            CurPlaying = Playing.none;
+        }
+
     }
     //-------------------------------------------wash--------------------------------------------
     //-------------------------------------------Ball--------------------------------------------
    
     public void Ball_Playing()
     {
-        int num = Random.Range(0, 2);
-
-        if(num==0 && ani.GetInteger("BallPlaying")==0)
+        //공 생성
+        if (curBall_Obj == null && ani.GetInteger("BallPlaying") == 0)
         {
-            //Good
-            ani.SetInteger("BallPlaying", 1);
-            Invoke("Playing_End", 3);
-            Dialog_Text_F("도깨비는 공놀이가 재미있다");
+            curBall_Obj = Instantiate(ball_Obj, transform.position + new Vector3(1, -1, 0), Quaternion.identity);
+            StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("도깨비와 공놀이를 할 수 있다"));
         }
-        else if (num == 1 && ani.GetInteger("BallPlaying") == 0)
-        {
-            //bad
-            ani.SetInteger("BallPlaying", -1);
-            Invoke("Playing_End", 3);
-            Dialog_Text_F("도깨비는 공놀이를 싫어하는것같다");
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            int num = Random.Range(0, 2);
+
+            if (num == 0 && ani.GetInteger("BallPlaying") == 0)
+            {
+                if (curBall_Obj != null)
+                {
+                    Destroy(curBall_Obj);
+                    //Good
+                    ani.SetInteger("BallPlaying", 1);
+                    Invoke("Playing_End", 3);
+
+                    StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("재미있게 놀고있는것 같다"));
+                    GameManager._instance.LoveAmountUp();
+                }
+
+
+            }
+            else if (num == 1 && ani.GetInteger("BallPlaying") == 0)
+            {
+                if (curBall_Obj != null)
+                {
+                    Destroy(curBall_Obj);
+                    //bad
+                    ani.SetInteger("BallPlaying", -1);
+                    Invoke("Playing_End", 3);
+                    StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("하기 싫어하는것 같다"));
+                }
+            }
         }
+       
     }
 
     void Playing_End()//Invoke 실행
     {
+        
         ani.SetInteger("BallPlaying", 0);
-        CurPlaying = Playing.none;
+        CurPlaying = Playing.none; 
+        
     }
 
     //-------------------------------------------Ball--------------------------------------------
-    //-------------------------------------------Tired--------------------------------------------
 
-    IEnumerator DoKeV_Tired()
-    {
-        
-        yield return new WaitForSeconds(10f);
-        CurPlaying = Playing.none;
-    }
+
+
     //-------------------------------------------Tired--------------------------------------------
 
     private void OnTriggerEnter2D(Collider2D collision)

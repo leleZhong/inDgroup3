@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 public class AdventureSystem_Manager : MonoBehaviour
 {
+    public static AdventureSystem_Manager intance;
     [SerializeField] public List<Adventure_Game> GameList;
 
     public Adventure_Game curGame;
@@ -23,6 +24,7 @@ public class AdventureSystem_Manager : MonoBehaviour
 
     void Start()
     {
+        intance = this;
        // Play_Random_Game();
     }
 
@@ -46,50 +48,17 @@ public class AdventureSystem_Manager : MonoBehaviour
 
     void PerfectZone()
     {
-        GameList[0].gameObject.SetActive(true);
-        curGame = GameList[0];
-        StartCoroutine("GameStart_Counting", GameList[0]);
-    }
-
-    //-------------------------------------------
-/*    public void Play_Random_Game()
-    {
-        curGame = null;
-        Played_Count++;
-        if(Played_Count<=3)
-        {
-            StartCoroutine("Play_Random_Game_corutine");
-
-        }
-        else
-        {
-            GameResult_F();
-        }
-
-    }*/
-
-    IEnumerator Play_Random_Game_corutine()
-    {
+         GameList[0].gameObject.SetActive(true);
+         curGame = GameList[0];
       
-        Select_RandomGame = Random.Range(3, 5);//<-Walking Time
-        yield return new WaitForSeconds(Select_RandomGame);
-        Exclamation_mark.SetActive(true);
-
-        yield return new WaitForSeconds(0.8f);//Show !
-        Exclamation_mark.SetActive(false);
-        int num = Random.Range(0, GameList.Count);//<-Select_Game
 
 
 
-
-
-        //Adventure_Game newG = Instantiate(GameList[num],new Vector3(0,0,-1.5f),Quaternion.identity);
-        //curGame = newG;
-        GameList[0].gameObject.SetActive(true);
-        curGame = GameList[0];
         StartCoroutine("GameStart_Counting", GameList[0]);
-
     }
+
+
+  
 
     //-----------------------------------------------------
 

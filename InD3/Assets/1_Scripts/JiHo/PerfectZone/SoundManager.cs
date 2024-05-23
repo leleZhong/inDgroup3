@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    public static SoundManager instance;
+
     public List<AudioSource> BGM_List;
     public List<AudioSource> SoundEffect_List;
 
@@ -14,6 +16,7 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
+        instance = this;
         BGM_Slider.value = BGM_Slider.maxValue / 2;
         Effect_Slider.value = Effect_Slider.maxValue / 2;
     }

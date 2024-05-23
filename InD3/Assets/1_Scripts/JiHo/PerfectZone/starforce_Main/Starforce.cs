@@ -9,19 +9,19 @@ public class Starforce : Adventure_Game
     public List<AudioClip> Effect_Sound;
 
     [SerializeField] GameObject UPPoint;
-     int UPPoint_H=1;
+    int UPPoint_H = 1;
     [SerializeField] float F_UPPoint_Speed;
     float UPPoint_Speed;
     [SerializeField] List<GameObject> StarCheck;
 
-     public GameObject Is_SuccessCheck;
+    public GameObject Is_SuccessCheck;
     [SerializeField] float Change_Is_SuccessCheck_sizeX;
     [SerializeField] float Change_Is_SuccessCheck_MinsizeX;
 
 
     [SerializeField] GameObject Success;
     [SerializeField] GameObject Fail;
-    [SerializeField ]Vector2 Succes_Offset;
+    [SerializeField] Vector2 Succes_Offset;
 
     [SerializeField] int chance_Num;
     [SerializeField] int Succes_num;
@@ -40,7 +40,7 @@ public class Starforce : Adventure_Game
     [SerializeField] TextMeshProUGUI MaxCombo_Count_Text;
 
     //Life
-    [SerializeField] GameObject [] Life;
+    [SerializeField] GameObject[] Life;
 
     //Result
     public GameObject Result_Panel;
@@ -50,17 +50,47 @@ public class Starforce : Adventure_Game
     public int gameResultCoin;
     private void Start()
     {
+        SoundManager.instance.Add_Sound(Game_BGM, "BGM");
+        SoundManager.instance.Add_Sound(Game_Effect, "Effect");
+
+
         //Timer_Slider
         Timer_Slider.maxValue = MaxGame_Time;
         Timer_Slider.value = MaxGame_Time;
-
     }
 
     private void Update()
     {
         GameTimer();
+
     }
 
+
+    public void Init_Starforce()
+    {
+        AdventureSystem_Manager.intance.curGame = null;
+        Timer_Slider.value = Timer_Slider.maxValue;
+        UPPoint.transform.localPosition = new Vector3(-5.84f, 4.26f, 1.65799f);
+        Succes_num = 0;
+        Combo_Count = 0;
+        MaxCombo_Count = 0;
+        chance_Num = 3;
+        Coin = 0;
+
+        Coin_Point.text = "0";
+        Combo_Text.text = "0";
+        MaxCombo_Count_Text.text = "0";
+
+        StarCheck[0].transform.localScale = new Vector3(1, 1, 1);
+        for (int i=0; i<3; i++)
+        {
+            Life[i].SetActive(true);
+        }
+
+        Result_Panel.SetActive(false);
+        Combo_Text.gameObject.SetActive(false);
+        gameObject.SetActive(false);
+    }
 
     public override void StartSetting()
     {
@@ -130,16 +160,13 @@ public class Starforce : Adventure_Game
                 Game_Effect.Play();
                 for (int i=0; i<Life.Length; i++)
                 {
-                    if(Life[i]!=null)
+                    if(Life[i].activeSelf==true)
                     {
-                        Destroy(Life[i]);
+                        Life[i].SetActive(false);
                         break;
                     }
 
-                    if(i==Life.Length-1)
-                    {
-                        //GameOver_result();
-                    }
+                  
                 }
 
                 GameObject res = Instantiate(Fail, (Vector2)UPPoint.transform.position + Succes_Offset, Quaternion.identity);
@@ -152,7 +179,10 @@ public class Starforce : Adventure_Game
 
             if (chance_Num == 0)
             {
-                Game_Result();
+                if (Result_Panel.activeSelf == false)
+                {
+                    Game_Result();
+                }
                 Game_Effect.clip = Effect_Sound[2];
                 Game_Effect.Play();
                 //Destroy(gameObject);
@@ -184,8 +214,12 @@ public class Starforce : Adventure_Game
         }
 
         if(Timer_Slider.value<=0)
-        {
-            Game_Result();
+
+        {   if(Result_Panel.activeSelf==false)
+            {
+                Game_Result();
+            }
+           
            // Destroy(gameObject);
         }
     }
@@ -195,10 +229,9 @@ public class Starforce : Adventure_Game
         //Coin = MaxCombo_Count * score
         Result_Panel.SetActive(true);
         Result.text = Coin.ToString()+"\n"+  MaxCombo_Count.ToString();
-        gameResultCoin = Coin * MaxCombo_Count;
+        gameResultCoin = Coin + MaxCombo_Count;
         Final_Result.text = gameResultCoin.ToString();
         GameManager._instance.uiManager.perfectResultCoin = gameResultCoin;
-        gameObject.SetActive(false);
     }
 
     

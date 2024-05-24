@@ -63,6 +63,7 @@ public class Shop : MonoBehaviour
         Chang_food_image_L.sprite = food_sprites[currentIndex1];
         Chang_food_image_C.sprite = food_sprites[currentIndex2];
         Chang_food_image_R.sprite = food_sprites[currentIndex3];
+        GameManager._instance.soundManager.ChangeAndPlaySfx(0); // 추가
     }
     // 먹이 탭 버튼
     public void ShopFood_Btn()
@@ -79,7 +80,7 @@ public class Shop : MonoBehaviour
     // 먹이탭에서 먹이 넘긴는 버튼
     public void Next_Btn()
     {
-       
+        GameManager._instance.soundManager.ChangeAndPlaySfx(0); // 추가
         currentIndex1++;
         if (currentIndex1 >= food_sprites.Length)
         {
@@ -104,6 +105,7 @@ public class Shop : MonoBehaviour
     //왼쪽 첫번째 먹이 버튼
     public void Shop_food_L()
     {
+        GameManager._instance.soundManager.ChangeAndPlaySfx(0); // 추가
         switch(currentIndex1)
         {
             case 0:
@@ -121,7 +123,7 @@ public class Shop : MonoBehaviour
                 itemtype = 0;
                 foodtype = 1;
                 foodQuantity = 1;
-                foodPrice_A[foodtype] = 200;
+                foodPrice_A[foodtype] = 250;
                 _Purchase_Food_Name_TMP.text = "김치볶음밥";
                 Purchase_change_image.sprite = food_sprites[1];
                 _Quantity_count.text = foodQuantity.ToString();
@@ -132,7 +134,7 @@ public class Shop : MonoBehaviour
                 itemtype = 0;
                 foodtype = 2;
                 foodQuantity = 1;
-                foodPrice_A[foodtype] = 200;
+                foodPrice_A[foodtype] = 400;
                 _Purchase_Food_Name_TMP.text = "바나나우유";
                 Purchase_change_image.sprite = food_sprites[2];
                 _Quantity_count.text = foodQuantity.ToString();
@@ -143,7 +145,7 @@ public class Shop : MonoBehaviour
                 itemtype = 0;
                 foodtype = 3;
                 foodQuantity = 1;
-                foodPrice_A[foodtype] = 200;
+                foodPrice_A[foodtype] = 1500;
                 _Purchase_Food_Name_TMP.text = "핫케이크";
                 Purchase_change_image.sprite = food_sprites[3];
                 _Quantity_count.text = foodQuantity.ToString();
@@ -156,6 +158,7 @@ public class Shop : MonoBehaviour
     // 가운데 먹이 버튼
     public void Shop_food_C()
     {
+        GameManager._instance.soundManager.ChangeAndPlaySfx(0); // 추가
         switch (currentIndex2)
         {
             case 0:
@@ -173,7 +176,7 @@ public class Shop : MonoBehaviour
                 itemtype = 0;
                 foodtype = 1;
                 foodQuantity = 1;
-                foodPrice_A[foodtype] = 200;
+                foodPrice_A[foodtype] = 250;
                 _Purchase_Food_Name_TMP.text = "김치볶음밥";
                 Purchase_change_image.sprite = food_sprites[1];
                 _Quantity_count.text = foodQuantity.ToString();
@@ -184,7 +187,7 @@ public class Shop : MonoBehaviour
                 itemtype = 0;
                 foodtype = 2;
                 foodQuantity = 1;
-                foodPrice_A[foodtype] = 200;
+                foodPrice_A[foodtype] = 400;
                 _Purchase_Food_Name_TMP.text = "바나나우유";
                 Purchase_change_image.sprite = food_sprites[2];
                 _Quantity_count.text = foodQuantity.ToString();
@@ -195,7 +198,7 @@ public class Shop : MonoBehaviour
                 itemtype = 0;
                 foodtype = 3;
                 foodQuantity = 1;
-                foodPrice_A[foodtype] = 200;
+                foodPrice_A[foodtype] = 1500;
                 _Purchase_Food_Name_TMP.text = "핫케이크";
                 Purchase_change_image.sprite = food_sprites[3];
                 _Quantity_count.text = foodQuantity.ToString();
@@ -208,6 +211,7 @@ public class Shop : MonoBehaviour
     //오른쪽 끝 먹이 버튼
     public void Shop_food_R()
     {
+        GameManager._instance.soundManager.ChangeAndPlaySfx(0); // 추가
         switch (currentIndex3)
         {
             case 0:
@@ -225,7 +229,7 @@ public class Shop : MonoBehaviour
                 itemtype = 0;
                 foodtype = 1;
                 foodQuantity = 1;
-                foodPrice_A[foodtype] = 200;
+                foodPrice_A[foodtype] = 250;
                 _Purchase_Food_Name_TMP.text = "김치볶음밥";
                 Purchase_change_image.sprite = food_sprites[1];
                 _Quantity_count.text = foodQuantity.ToString();
@@ -236,7 +240,7 @@ public class Shop : MonoBehaviour
                 itemtype = 0;
                 foodtype = 2;
                 foodQuantity = 1;
-                foodPrice_A[foodtype] = 200;
+                foodPrice_A[foodtype] = 400;
                 _Purchase_Food_Name_TMP.text = "바나나우유";
                 Purchase_change_image.sprite = food_sprites[2];
                 _Quantity_count.text = foodQuantity.ToString();
@@ -247,7 +251,7 @@ public class Shop : MonoBehaviour
                 itemtype = 0;
                 foodtype = 3;
                 foodQuantity = 1;
-                foodPrice_A[foodtype] = 200;
+                foodPrice_A[foodtype] = 1500;
                 _Purchase_Food_Name_TMP.text = "핫케이크";
                 Purchase_change_image.sprite = food_sprites[3];
                 _Quantity_count.text = foodQuantity.ToString();
@@ -316,6 +320,7 @@ public class Shop : MonoBehaviour
     // 수량(+) 버튼
     public void Quantity_Up_Btn()
     {
+        GameManager._instance.soundManager.ChangeAndPlaySfx(0); // 추가
         // 먹이
         switch (foodtype)
         {
@@ -328,19 +333,19 @@ public class Shop : MonoBehaviour
                 break;
             case 1:
                 foodQuantity += 1;
-                foodPrice_A[foodtype] += 200;
+                foodPrice_A[foodtype] += 250;
                 _Quantity_count.text = foodQuantity.ToString();
                 _Price_count.text = foodPrice_A[foodtype].ToString();
                 break;
             case 2:
                 foodQuantity += 1;
-                foodPrice_A[foodtype] += 200;
+                foodPrice_A[foodtype] += 400;
                 _Quantity_count.text = foodQuantity.ToString();
                 _Price_count.text = foodPrice_A[foodtype].ToString();
                 break;
             case 3:
                 foodQuantity += 1;
-                foodPrice_A[foodtype] += 200;
+                foodPrice_A[foodtype] += 1500;
                 _Quantity_count.text = foodQuantity.ToString();
                 _Price_count.text = foodPrice_A[foodtype].ToString();
                 break;
@@ -388,6 +393,7 @@ public class Shop : MonoBehaviour
     // 수량(-)버튼
     public void Quantity_Down_Btn()
     {
+        GameManager._instance.soundManager.ChangeAndPlaySfx(0); // 추가
         // 먹이
         if (foodPrice_A[0] > 100 && foodQuantity > 1 && foodtype == 0)
         {
@@ -397,24 +403,24 @@ public class Shop : MonoBehaviour
             _Price_count.text = foodPrice_A[foodtype].ToString();
             
         }
-        if (foodPrice_A[1] > 200 && foodQuantity > 1 && foodtype == 1)
+        if (foodPrice_A[1] > 250 && foodQuantity > 1 && foodtype == 1)
         {
             foodQuantity -= 1;
-            foodPrice_A[foodtype] -= 200;
+            foodPrice_A[foodtype] -= 250;
             _Quantity_count.text = foodQuantity.ToString();
             _Price_count.text = foodPrice_A[foodtype].ToString();
         }
-        if (foodPrice_A[2] > 200 && foodQuantity > 1 && foodtype == 2)
+        if (foodPrice_A[2] > 400 && foodQuantity > 1 && foodtype == 2)
         {
             foodQuantity -= 1;
-            foodPrice_A[foodtype] -= 200;
+            foodPrice_A[foodtype] -= 400;
             _Quantity_count.text = foodQuantity.ToString();
             _Price_count.text = foodPrice_A[foodtype].ToString();
         }
-        if (foodPrice_A[3] > 200 && foodQuantity > 1 && foodtype == 3)
+        if (foodPrice_A[3] > 1500 && foodQuantity > 1 && foodtype == 3)
         {
             foodQuantity -= 1;
-            foodPrice_A[foodtype] -= 200;
+            foodPrice_A[foodtype] -= 1500;
             _Quantity_count.text = foodQuantity.ToString();
             _Price_count.text = foodPrice_A[foodtype].ToString();
         }
@@ -469,12 +475,12 @@ public class Shop : MonoBehaviour
         if (itemtype == 0)
         {
             foodPrice = foodPrice_A[foodtype];
-            if (foodPrice < GameManager._instance.coin)
+            if (foodPrice > GameManager._instance.coin)
             {
                 // 돈 부족
                 StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("코인이 부족합니다."));
             }
-            else if (foodPrice >= GameManager._instance.coin)
+            else if (foodPrice <= GameManager._instance.coin)
             {
                 GameManager._instance.foodCount[foodtype] += foodQuantity;
                 GameManager._instance.coin -= foodPrice;
@@ -482,6 +488,7 @@ public class Shop : MonoBehaviour
                 GameManager._instance.uiManager.shopPanel.SetActive(false);
                 GameManager._instance.uiManager.isPopUp = false;
                 GameManager._instance.uiManager.SetCurGameCoinText();
+                GameManager._instance.soundManager.ChangeAndPlaySfx(3); // 추가
             }
         }
         // 인테리어
@@ -499,7 +506,7 @@ public class Shop : MonoBehaviour
     public void Purchase_Cancel_Btn()
     {
         _Purchase_Panel.SetActive(false);
-        GameManager._instance.uiManager.isPopUp = false;
+        GameManager._instance.soundManager.ChangeAndPlaySfx(0); // 추가
     }
 
 

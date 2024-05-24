@@ -37,11 +37,6 @@ public class CircleManager : MonoBehaviour
 
     
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         if(GameManager._instance.uiManager.isCountDown)
@@ -94,6 +89,8 @@ public class CircleManager : MonoBehaviour
         // 초기 원소 추가
         AddInitialCircles();
         MovePosition();
+        GameManager._instance.soundManager.ChangeBGM(3); // 추가
+        GameManager._instance.soundManager.ChangeAndPlaySfx(0); // 추가
     }
     
     void AddInitialCircles()
@@ -146,25 +143,30 @@ public class CircleManager : MonoBehaviour
             AddData();
             MovePosition();
             AddScore();
+            GameManager._instance.soundManager.ChangeAndPlaySfx(4); // 추가
         }
         else
         {
             ChangeLife();
+            GameManager._instance.soundManager.ChangeAndPlaySfx(5); // 추가
         }
     }
 
     public void OnClickRightButton()
     {
+        
         if (_circleQueue.Peek().CompareTag("Right"))
         {
             RemoveData(new Vector3(1, 0, 0));
             AddData();
             MovePosition();
             AddScore();
+            GameManager._instance.soundManager.ChangeAndPlaySfx(4); // 추가
         }
         else
         {
             ChangeLife();
+            GameManager._instance.soundManager.ChangeAndPlaySfx(5); // 추가
         }
     }
 
@@ -217,6 +219,7 @@ public class CircleManager : MonoBehaviour
             _timeLimit = GetLevelTimeLimit(_level);
             _timeRemaining = _timeLimit;  // Reset timer with new level's time limit
             OnLevelChange?.Invoke(_level);
+            GameManager._instance.soundManager.ChangeAndPlaySfx(1); // 추가
         }
     }
 
@@ -246,7 +249,7 @@ public class CircleManager : MonoBehaviour
         _gameOverPanel.SetActive(true);
         finalScore = CalculateFinalScore();
         MiniUIManager.Instance.ShowFinalScore(finalScore);
-
+        GameManager._instance.soundManager.ChangeAndPlaySfx(1); // 추가
         ClearCircles();
     }
 
@@ -265,6 +268,9 @@ public class CircleManager : MonoBehaviour
         GameManager._instance.coin += finalScore;
         GameManager._instance.uiManager.miniGameScene.SetActive(false);
         GameManager._instance.uiManager.SetCurGameCoinText();
+        GameManager._instance.uiManager.isPopUp = false;
+        GameManager._instance.soundManager.ChangeAndPlaySfx(3); // 추가
+        GameManager._instance.soundManager.ChangeBGM(0); // 추가
     }
 
     int CalculateFinalScore()

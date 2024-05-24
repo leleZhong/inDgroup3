@@ -152,7 +152,7 @@ public class DokeV_JIHO : MonoBehaviour
                 dirty_Dummy.SetActive(true);
                 dirty_Dummy.gameObject.GetComponent<SpriteRenderer>().color = c;
                
-                StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("도깨비가 더러워보인다 터치해서 깨끗하게 닦아주자"));
+                StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("도깨비가 더러워보인다.\n터치해서 깨끗하게 닦아주자"));
                 break;
 
             case Playing.glass:
@@ -160,7 +160,7 @@ public class DokeV_JIHO : MonoBehaviour
                 push_CurTime = push_Time;
                 ani.SetInteger("Glass", 1);
                 
-                StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("도깨비가 답답해 보인다 유리병을 때겨 빼주자"));
+                StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("도깨비가 답답해 보인다.\n유리병을 당겨 빼주자"));
 
 
                 break;
@@ -170,7 +170,7 @@ public class DokeV_JIHO : MonoBehaviour
                 ani.SetInteger("Food", 1);
                 Invoke("Eated_Food", 5);
                 
-                StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("도깨비가 뭘 주워먹은 듯하다 배가불러보인다"));
+                StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("도깨비가 뭘 주워먹은 듯하다.\n배가불러보인다"));
 
                 //Inven _ Get _ Food
                 break;

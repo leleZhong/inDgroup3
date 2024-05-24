@@ -48,6 +48,7 @@ public class AdventureSystem_Manager : MonoBehaviour
 
     void PerfectZone()
     {
+         SoundManager.instance.BGM_List[0].Stop();
          GameList[0].gameObject.SetActive(true);
          curGame = GameList[0];
       

@@ -220,7 +220,7 @@ public class Starforce : Adventure_Game
                 Game_Result();
             }
            
-           // Destroy(gameObject);
+            // Destroy(gameObject);
         }
     }
 

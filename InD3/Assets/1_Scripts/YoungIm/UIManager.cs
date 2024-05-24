@@ -34,8 +34,11 @@ public class UIManager : MonoBehaviour
     public TMP_Text foodInfoText; // 음식 정보 텍스트
     public TMP_Text foodNameText; // 음식 이름 텍스트
     public TMP_Text foodCountText; // 음식 개수 표출 텍스트
-    public Image[] foodItem; // 음식 이미지
-    
+    public Image[] foodBtnItem; // 음식 버튼 배경 이미지
+    public Sprite[] foodImages; // 음식 이미지
+    public int[] foodIncrease = new int[] { 10, 20, 30, 100 };
+    public Image selectFoodImage;
+
     //==============================================[ 놀이 UI ]======================================================
     //  놀이 상자 변수
     [Header("----[ Play UI ]")]
@@ -67,7 +70,7 @@ public class UIManager : MonoBehaviour
     //public Button shopBtn; // 상점 버튼
     //public Button feedBtn;  // 먹이 버튼
     //public Button playBtn;  // 놀기 버튼
-
+    
     public GameObject shopPanel; // 상점 패널
     public GameObject toyPanel;
     public TMP_Text toyInfoText; // 장난감 정보 텍스트
@@ -97,10 +100,14 @@ public class UIManager : MonoBehaviour
 
     public GameObject goYardBtn;
 
+    public GameObject settingPanel;
+    public GameObject releaseDkbPanel;
+
     //==============================================[ 기타 ]==========================================================
 
     public bool isPopUp;
-    public bool isSetToy;
+    //public bool isSetToy;
+    public bool isToyBoxOn;
     
     // ==============================================================================================================
 
@@ -111,6 +118,7 @@ public class UIManager : MonoBehaviour
         foodPanel.SetActive(false);
         playBoxPanel.SetActive(false);
         shopPanel.SetActive(false);
+        settingPanel.SetActive(false);
         
         gameStartScene.SetActive(true);
         gameIntroScene.SetActive(false);
@@ -124,6 +132,8 @@ public class UIManager : MonoBehaviour
         helpPerfectGameScene.SetActive(false);
         
         goYardBtn.SetActive(false);
+
+        isPopUp = true;
     }
 
     private void Start()
@@ -141,10 +151,12 @@ public class UIManager : MonoBehaviour
 
     public void HelpOpenBtn(int orderIndex) // 0: room / 1: LRGame / 2: PerfectGame
     {
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
         switch (orderIndex)
         {
             case 0:
                 helpRoomScene.SetActive(true);
+                isPopUp = true;
                 break;
             case 1:
                 helpLRGameScene.SetActive(true);
@@ -157,10 +169,12 @@ public class UIManager : MonoBehaviour
     
     public void HelpCloseBtn(int orderIndex) // 0: room / 1: LRGame / 2: PerfectGame
     {
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
         switch (orderIndex)
         {
             case 0:
                 helpRoomScene.SetActive(false);
+                isPopUp = false;
                 break;
             case 1:
                 helpLRGameScene.SetActive(false);
@@ -176,7 +190,7 @@ public class UIManager : MonoBehaviour
     // 먹이 함수 1. 배부를 때는 밥X, 아닐 때 먹이 상자 Enable
     public void FoodPanelButton()
     {
-        if(isPopUp || isSetToy)
+        if(isPopUp)// || isSetToy)
             return;
         
         /*for(int i = 0; i < foodCountText.Length; i++)
@@ -188,6 +202,7 @@ public class UIManager : MonoBehaviour
 
         foodPanel.SetActive(true);
         isPopUp = true;
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
     }
 
     // 먹이 함수 2. 밥 주기 취소 (패널 Disable, 먹이 상자 초기화)
@@ -195,51 +210,59 @@ public class UIManager : MonoBehaviour
     {
         foodPanel.SetActive(false);
         isPopUp = false;
-        for (int i = 0; i < foodItem.Length; i++)
+        for (int i = 0; i < foodBtnItem.Length; i++)
         {
-            foodItem[i].color = new Color(1, 1, 1, 1);
+            foodBtnItem[i].color = new Color(1, 1, 1, 1);
         }
         foodNameText.text = "음식 이름";
         foodInfoText.text = "음식 선택 시 정보를 표시합니다.";
+        foodCountText.text = "수량:";
         gameManager.foodType = 100;
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
+        selectFoodImage.sprite = foodImages[0];
     }
 
     // 먹이 함수 3. 먹이 눌렀을 때 정보 표출, 하나의 먹이만 선택 가능
     public void FoodBoxItem(int foodIndex)
     {
-        for (int i = 0; i < foodItem.Length; i++)
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
+        for (int i = 0; i < foodBtnItem.Length; i++)
         {
             if (i == foodIndex)
             {
-                foodItem[foodIndex].color = new Color(0.5f, 0.5f, 0.5f, 1);
+                foodBtnItem[foodIndex].color = new Color(0.5f, 0.5f, 0.5f, 1);
                 foodCountText.text = String.Format("수량: {0:D}", gameManager.foodCount[foodIndex]);
                 switch (foodIndex)
                 {
                     case 0:
                         foodNameText.text = "기본먹이";
-                        foodInfoText.text = "0번이에유";
+                        foodInfoText.text = "포만도를 10만큼 올려줍니다.";
                         gameManager.foodType = 0;
+                        selectFoodImage.sprite = foodImages[1];
                         break;
                     case 1:
                         foodNameText.text = "김치볶음밥";
-                        foodInfoText.text = "1번이에유";
+                        foodInfoText.text = "포만도를 20만큼 올려줍니다.";
                         gameManager.foodType = 1;
+                        selectFoodImage.sprite = foodImages[2];
                         break;
                     case 2:
                         foodNameText.text = "바나나우유";
-                        foodInfoText.text = "2번이에유";
+                        foodInfoText.text = "포만도를 30만큼 올려줍니다.";
                         gameManager.foodType = 2;
+                        selectFoodImage.sprite = foodImages[3];
                         break;
                     case 3:
                         foodNameText.text = "핫케이크";
-                        foodInfoText.text = "3번이에유";
+                        foodInfoText.text = "포만도를 최대치까지 올려줍니다.";
                         gameManager.foodType = 3;
+                        selectFoodImage.sprite = foodImages[4];
                         break;
                 }
             }
             else
             {
-                foodItem[i].color = new Color(1, 1, 1, 1);
+                foodBtnItem[i].color = new Color(1, 1, 1, 1);
             }
         }
     }
@@ -263,8 +286,18 @@ public class UIManager : MonoBehaviour
         {
             print("밥 먹었어유");
             gameManager.foodCount[gameManager.foodType]--;
-            gameManager.feedAmount += 10;
+            if (gameManager.feedAmount + foodIncrease[gameManager.foodType] <= 100)
+            {
+                gameManager.feedAmount += foodIncrease[gameManager.foodType];
+            }
+            else
+            {
+                gameManager.feedAmount = 100;
+            }
+                
+
             FoodBoxCancel();
+            gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
         }
         else
         {
@@ -277,9 +310,10 @@ public class UIManager : MonoBehaviour
     // 케어 함수 Play. 
     public void PlayBoxButton()
     {
-        if(isPopUp || isSetToy)
+        if(isPopUp)// || isSetToy)
             return;
-        
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
+        gameManager.soundManager.ChangeBGM(2); // 추가
         if (gameManager.playCount <= 0)
         {
             StartCoroutine(GameInfoMessage("피곤해 보입니다."));
@@ -304,7 +338,8 @@ public class UIManager : MonoBehaviour
     {
         gameManager.playCount--;
         playBoxPanel.SetActive(false);
-        isPopUp = false;
+        //isPopUp = false;
+        gameManager.soundManager.ChangeAndPlaySfx(2); // 추가
         for (int i = 0; i < playTypeSprites.Length; i++)
         {
             if (curGameImage.sprite == playTypeSprites[i])
@@ -328,10 +363,13 @@ public class UIManager : MonoBehaviour
     {
         playBoxPanel.SetActive(false);
         isPopUp = false;
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
+        gameManager.soundManager.ChangeBGM(0); // 추가
     }
 
     public void NextGameBtn()
     {
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
         for (int i = 0; i < playTypeSprites.Length; i++)
         {
             if (curGameImage.sprite == playTypeSprites[i])
@@ -348,6 +386,7 @@ public class UIManager : MonoBehaviour
     
     public void PreGameBtn()
     {
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
         for (int i = 0; i < playTypeSprites.Length; i++)
         {
             if (curGameImage.sprite == playTypeSprites[i])
@@ -451,14 +490,15 @@ public class UIManager : MonoBehaviour
     // 게임 내 안내메시지
     public IEnumerator GameInfoMessage(string infoMessageStr)
     {
-        if (_isInfoTime)
-            yield break;
-        _isInfoTime = true;
-        infoMessage.SetActive(true);
-        infoMessageText.text = infoMessageStr;
-        yield return new WaitForSeconds(1);
-        infoMessage.SetActive(false);
-        _isInfoTime = false;
+        if (!_isInfoTime)
+        {
+            _isInfoTime = true;
+            infoMessage.SetActive(true);
+            infoMessageText.text = infoMessageStr;
+            yield return new WaitForSeconds(1);
+            infoMessage.SetActive(false);
+            _isInfoTime = false;
+        }
     }
 
     // UI
@@ -506,24 +546,23 @@ public class UIManager : MonoBehaviour
     // 도깨비 장난감 놓는 +버튼 상호작용시
     public void SetDokkaebiButton()
     {
-        if(isPopUp)
-            return;
-
+        isToyBoxOn = true;
         toyPanel.SetActive(true);
-        isPopUp = true;
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추음
     }
     
     // 장난감 놓는 패널 닫기
     public void ToyBoxCancel()
     {
         toyPanel.SetActive(false);
-        isPopUp = false;
+        isToyBoxOn = false;
         toyNameText.text = "장난감 이름";
         toyInfoText.text = "장난감 선택 시 정보를 표시합니다.";
         if(gameManager.toyType != 100)
             toyItemImage[gameManager.toyType].color = new Color(1, 1, 1, 1);
             //toyItemImage[gameManager.toyType].sprite = toyItemO[gameManager.toyType];
         gameManager.toyType = 100;
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
     }
 
     // 장난감 패널 열 때 아이템 목록 설정
@@ -578,11 +617,12 @@ public class UIManager : MonoBehaviour
             StartCoroutine(GameInfoMessage("놓을 장난감을 선택해주세요."));
             return;
         }
-        
+
         toyItemImage[gameManager.toyType].sprite = toyItemX[gameManager.toyType];
         
         // 장난감 패널 닫기
         toyPanel.SetActive(false);
+        isToyBoxOn = false;
         toyItemImage[gameManager.toyType].sprite = toyItemO[gameManager.toyType];
         
         // 도깨비 장난감 설치
@@ -595,17 +635,44 @@ public class UIManager : MonoBehaviour
         gameManager.coolM = gameManager.toyTimeCoolM;
         gameManager.coolS = gameManager.toyTimeCoolS;
         gameManager.SetCareCoolTime();
-        gameManager.isGrowStart = true;
+        //gameManager.isGrowStart = true;
+        gameManager.isToyTime = true;
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
     }
     
     // ==============================================================================================================
 
     public void ShopBoxPanelBtn()
     {
-        if(isPopUp || isSetToy)
+        if(isPopUp)// || isSetToy)
             return;
         isPopUp = true;
         shopPanel.SetActive(true);
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
+    }
+
+    public void SettingPanelBtn() //추가
+    {
+        if(isToyBoxOn)
+            return;
+        if(gameManager.isGrowStart)
+        {
+            if(isPopUp)
+                return;
+            isPopUp = true;
+        }
+        settingPanel.SetActive(true);
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
+    }
+
+    public void SettingPanelCancel() //추가
+    {
+        if(gameManager.isGrowStart)
+        {
+            isPopUp = false;
+        }
+        settingPanel.SetActive(false);
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
     }
     
     // ==============================================================================================================
@@ -615,16 +682,25 @@ public class UIManager : MonoBehaviour
         roomScene.SetActive(false);
         yardScene.SetActive(true);
         gameManager.collectionGroup.SetActive(true);
+        gameManager.soundManager.ChangeBGM(1);  //추가
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
     }
 
     public void GoRoom()
     {
-        roomScene.SetActive(true);
-        yardScene.SetActive(false);
-        gameManager.collectionGroup.SetActive(false);
+        if(!roomScene.activeSelf)
+            roomScene.SetActive(true);
+        if(yardScene.activeSelf)
+            yardScene.SetActive(false);
+        if(releaseDkbPanel.activeSelf)
+            releaseDkbPanel.SetActive(false);
+        if(gameManager.collectionGroup.activeSelf)
+            gameManager.collectionGroup.SetActive(false);
         playerName.text = PlayerPrefs.GetString("PlayerName");
         AddCurExpState();
-        isSetToy = true;
+        //isSetToy = true;
+        gameManager.soundManager.ChangeBGM(0); //추가
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
     }
 
     public void GoIntro()
@@ -632,6 +708,7 @@ public class UIManager : MonoBehaviour
         gameStartScene.SetActive(false);
         gameIntroScene.SetActive(true);
         playerNameInputGroup.SetActive(true);
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
     }
 
     // ==============================================================================================================
@@ -665,5 +742,9 @@ public class UIManager : MonoBehaviour
         perfectGameScene.SetActive(false);
         perfectGameStartBtn.SetActive(true);
         SetCurGameCoinText();
+        gameManager.soundManager.ChangeAndPlaySfx(0); // 추가
+        gameManager.soundManager.ChangeBGM(0); //추가
+        isPopUp = false; //추
     }
+    
 }

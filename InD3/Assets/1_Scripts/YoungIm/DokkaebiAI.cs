@@ -46,11 +46,11 @@ public class DokkaebiAI : MonoBehaviour
                 _movePos = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
                 if (transform.position.x >= _movePos.x)
                 {
-                    spriteRndr.flipX = true;
+                    spriteRndr.flipX = false;
                 }
                 else
                 {
-                    spriteRndr.flipX = false;
+                    spriteRndr.flipX = true;
                 }
                 curCoolTime = maxCoolTime;
             }

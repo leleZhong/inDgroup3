@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager _instance;
     public UIManager uiManager;
     public AdventureSystem_Manager adventureSystemManager;
+    public SoundManager soundManager;
     
     // 먹이 변수
     public int foodType = 100; // 음식 종류, 아무것도 선택하지 않았을 때의 값을 미리 선언
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
     // 기본 성장 변수
     public int growthLevel;   // 도깨비 성장 레벨
     public bool isGrowStart;  // 성장 시작 확인
+    public bool isToyTime;  // 성장 시작 확인
     public bool isLvUp;
     // lv0 ~ lv1 성장
     public GameObject[] dkbObjs;         // lv0 ~ lv1 도깨비 게임 오브젝트
@@ -72,6 +74,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] lv2Prefabs;   // lv2 도깨비들 프리펩
     
     //==============================================[ 미분류 ]===================================================
+
     
     
     //=========================================================================================================
@@ -97,8 +100,13 @@ public class GameManager : MonoBehaviour
         uiManager.feedFilledImage.fillAmount = (float)feedAmount / 100;
         
         // 키우기가 시작됐을 때(도깨비 장난감을 놓은 순간) 쿨다운 시작
-        if(!isGrowStart || isLvUp)
+        if(!isToyTime || isLvUp)
             return;
+        if (isGrowStart)
+        {
+            if(uiManager.isPopUp)
+                return;
+        }
         CareCoolDown();
     }
 
@@ -165,8 +173,9 @@ public class GameManager : MonoBehaviour
     // 무슨 도깨비인지 장난감 타입(toyType)에 따라 결정
     void WhatDokkaebi()
     {
+        //uiManager.isSetToy = false;
         uiManager.isPopUp = false;
-        uiManager.isSetToy = false;
+        isGrowStart = true;
         dkbObjs[0].SetActive(true);
         dkbToy.SetActive(false);
         uiManager.SetExpStateActive();
@@ -183,11 +192,13 @@ public class GameManager : MonoBehaviour
     {
         if (feedAmount <= minFnLAmount) // 스트레스 up
         {
-            if(stressLevel >= 9)
+            if(stressLevel >= 3)
             {
                 print("도깨비 방생 애니메이션 등장");
+                uiManager.releaseDkbPanel.SetActive(true);
                 // 도깨비 있던 곳 비워지고 모든 값 초기화
                 // 새로운 도깨비 데려오는 버튼 도깨비 불 있는 곳에 활성화
+                CareRoomReset();
             }
             else
             {
@@ -206,7 +217,7 @@ public class GameManager : MonoBehaviour
             feedAmount -= 10;
         }
     }
-    
+
     // 경험치에 따른 도깨비 성장
     void DokkaebiGrowth()
     {
@@ -246,6 +257,7 @@ public class GameManager : MonoBehaviour
 
     public void LvUpButton()
     {
+        soundManager.ChangeAndPlaySfx(1); // 추가
         switch (growthLevel)
         {
             case 0:
@@ -280,6 +292,8 @@ public class GameManager : MonoBehaviour
     void CareRoomReset()
     {
         isGrowStart = false;
+        uiManager.isPopUp = true;
+        isToyTime = false;
         toyType = 100;
         exp = 0;
         stressLevel = 0;

@@ -6,7 +6,7 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
-
+    
     public List<AudioSource> BGM_List;
     public List<AudioSource> SoundEffect_List;
 
@@ -14,11 +14,20 @@ public class SoundManager : MonoBehaviour
     public Slider BGM_Slider;
     public Slider Effect_Slider;
 
+    public AudioClip[] bgmClips;
+    public AudioClip[] sfxClips;
+
     private void Start()
     {
+        BGM_List[0].playOnAwake = true; // 시작시 배경음 플레이 추가 완료
+        BGM_List[0].loop = true;
+        SoundEffect_List[0].playOnAwake = false; 
+        SoundEffect_List[0].loop = false;
+
         instance = this;
+        
         BGM_Slider.value = BGM_Slider.maxValue / 2;
-        Effect_Slider.value = Effect_Slider.maxValue / 2;
+        Effect_Slider.value = Effect_Slider.maxValue;
     }
 
 
@@ -40,7 +49,6 @@ public class SoundManager : MonoBehaviour
         }
        
     }
-
 
     public void Change_BGMSound()
     {
@@ -70,6 +78,26 @@ public class SoundManager : MonoBehaviour
        
     }
 
+    
+    // ========================================================
 
-   
+    public void ChangeBGM(int sceneNum) // 0: Room 1: Yard 2: 미니게임선택배경음 3: LR게임배경음
+    {
+        if (BGM_List[0].clip != bgmClips[sceneNum])
+        {
+            BGM_List[0].clip = bgmClips[sceneNum];
+        }
+        
+        BGM_List[0].Play();
+    }
+
+    public void ChangeAndPlaySfx(int sfxNum) // 0: 버튼클릭음 1: 성장효과음 2: 미니게임선택음 3: 상점구매음 4: 미니게임성공 5: 미니게임실패음
+    {
+        if (SoundEffect_List[0].clip != sfxClips[sfxNum])
+        {
+            SoundEffect_List[0].clip = sfxClips[sfxNum];
+        }
+
+        SoundEffect_List[0].Play();
+    }
 }

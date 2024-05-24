@@ -152,7 +152,7 @@ public class DokeV_JIHO : MonoBehaviour
                 dirty_Dummy.SetActive(true);
                 dirty_Dummy.gameObject.GetComponent<SpriteRenderer>().color = c;
                
-                StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("도깨비가 더러워보인다.\n터치해서 깨끗하게 닦아주자"));
+                StartCoroutine(GameManager._instance.uiManager.GameInfoMessage("도깨비가 더러워보인다.\n클릭해서 깨끗하게 닦아주자"));
                 break;
 
             case Playing.glass:

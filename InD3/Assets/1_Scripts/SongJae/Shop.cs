@@ -9,7 +9,7 @@ public class Shop : MonoBehaviour
 {
     // 전역변수 및 배열
     static int itemtype = 100;                                              // 0 = 먹이, 1 = 가구
-    static int[] foodPrice_A = new int[] { 100, 200, 200, 200, 300 };      // 먹이 4개
+    static int[] foodPrice_A = new int[] { 100, 250, 400, 1500, 300 };      // 먹이 4개
     static int foodtype = 100;                                              // 먹이 타입 0~3
     static int foodQuantity = 0;                                           // 먹이 아이템 수량 담긴 변수
     static int foodPrice = 0;                                              // 먹이 가격

@@ -33,23 +33,26 @@ public class CircleManager : MonoBehaviour
     float _timeRemaining;   // 남은 시간
 
     private int finalScore;
-    
 
-    
+
+
 
     void Update()
     {
         if(GameManager._instance.uiManager.isCountDown)
             return;
-        
-        if (GameManager._instance.uiManager.isMiniGameStart)
+
+        if (GameManager._instance.uiManager.isMiniGameStart && !_gameOverPanel.activeSelf )
         {
-            _timeRemaining -= Time.deltaTime;
-            MiniUIManager.Instance.UpdateTimer(_timeRemaining / _timeLimit);
-        
-            if (_timeRemaining <= 0)
+            if (_timeRemaining != 0)
+            {
+                _timeRemaining -= Time.deltaTime;
+                MiniUIManager.Instance.UpdateTimer(_timeRemaining / _timeLimit);
+            }
+            if (_timeRemaining < 0)
             {
                 GameOver();
+                _timeRemaining = 0;
             }
         }
 
@@ -137,6 +140,11 @@ public class CircleManager : MonoBehaviour
 
     public void OnClickLeftButton()
     {
+        if (_gameOverPanel.activeSelf)
+        {
+            return;
+        }
+
         if (_circleQueue.Peek().CompareTag("Left"))
         {
             RemoveData(new Vector3(-1, 0, 0));
@@ -154,6 +162,10 @@ public class CircleManager : MonoBehaviour
 
     public void OnClickRightButton()
     {
+        if (_gameOverPanel.activeSelf)
+        {
+            return;
+        }
         
         if (_circleQueue.Peek().CompareTag("Right"))
         {
@@ -246,10 +258,10 @@ public class CircleManager : MonoBehaviour
 
     void GameOver()
     {
+        SoundManager.instance.ChangeAndPlaySfx(1); // 추가
         _gameOverPanel.SetActive(true);
         finalScore = CalculateFinalScore();
         MiniUIManager.Instance.ShowFinalScore(finalScore);
-        GameManager._instance.soundManager.ChangeAndPlaySfx(1); // 추가
         ClearCircles();
     }
 

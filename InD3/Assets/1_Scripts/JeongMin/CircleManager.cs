@@ -26,7 +26,7 @@ public class CircleManager : MonoBehaviour
     int _life;
     public event Action<int> OnLifeChange;
 
-    int _level = 1;
+    int _level;
     public event Action<int> OnLevelChange;
 
     float _timeLimit = 10f; // 초기 제한 시간 설정
@@ -44,15 +44,15 @@ public class CircleManager : MonoBehaviour
 
         if (GameManager._instance.uiManager.isMiniGameStart && !_gameOverPanel.activeSelf )
         {
-            if (_timeRemaining != 0)
+            if (_timeRemaining > 0)
             {
                 _timeRemaining -= Time.deltaTime;
                 MiniUIManager.Instance.UpdateTimer(_timeRemaining / _timeLimit);
             }
-            if (_timeRemaining < 0)
+            if (_timeRemaining <= 0)
             {
-                GameOver();
                 _timeRemaining = 0;
+                UpdateLevel();
             }
         }
 
@@ -70,6 +70,7 @@ public class CircleManager : MonoBehaviour
         _score = 0;
         _life = 3;
         _timeRemaining = _timeLimit;
+        _level = 1;
 
         // // 처음에 5개의 오브젝트를 큐에 추가
         // _circleQueue.Enqueue(Instantiate(_circles[0]));
@@ -196,7 +197,6 @@ public class CircleManager : MonoBehaviour
     public void AddScore()
     {
         _score++;
-        UpdateLevel();
         OnScoreChange?.Invoke(_score);
     }
 
@@ -219,12 +219,16 @@ public class CircleManager : MonoBehaviour
     void UpdateLevel()
     {
         int previousLevel = _level;
-        if (_score < 10)
-            _level = 1;
-        else if (_score < 30)
+
+        if (_level == 1 && _score >= 10)
             _level = 2;
-        else
+        else if (_level == 2 && _score >= 30)
             _level = 3;
+        else if (_timeRemaining <= 0) // 시간 초과인데 점수가 다음 레벨 기준에 도달하지 못한 경우
+        {
+            GameOver();
+            return; // 게임 오버가 호출되면 이후 코드를 실행하지 않도록 리턴
+        }
 
         if (_level != previousLevel)
         {
@@ -246,19 +250,10 @@ public class CircleManager : MonoBehaviour
         }
     }
 
-    int GetTargetScoreForLevel(int level)
-    {
-        switch (level)
-        {
-            case 1: return 10;
-            case 2: return 30;
-            default: return 50;
-        }
-    }
-
     void GameOver()
     {
-        SoundManager.instance.ChangeAndPlaySfx(1); // 추가
+        Debug.Log("GameOver called"); // 로그 추가
+        GameManager._instance.soundManager.ChangeAndPlaySfx(1); // 게임 오버 사운드를 재생
         _gameOverPanel.SetActive(true);
         finalScore = CalculateFinalScore();
         MiniUIManager.Instance.ShowFinalScore(finalScore);

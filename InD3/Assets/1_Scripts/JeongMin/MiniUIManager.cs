@@ -80,11 +80,17 @@ public class MiniUIManager : MonoBehaviour
             case 1:
                 _levelCircles[0].SetActive(true);
                 _levelCircles[1].SetActive(true);
+                _levelCircles[2].SetActive(false);
+                _levelCircles[3].SetActive(false);
+                _levelCircles[4].SetActive(false);
+                _levelCircles[5].SetActive(false);
                 StartCoroutine(ShowLevelUpForSeconds(0.3f));
                 break;
             case 2:
                 _levelCircles[2].SetActive(true);
                 _levelCircles[3].SetActive(true);
+                _levelCircles[4].SetActive(false);
+                _levelCircles[5].SetActive(false);
                 StartCoroutine(ShowLevelUpForSeconds(0.3f));
                 break;
             case 3:

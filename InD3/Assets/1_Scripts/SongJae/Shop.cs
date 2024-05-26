@@ -13,12 +13,7 @@ public class Shop : MonoBehaviour
     static int foodtype = 100;                                              // 먹이 타입 0~3
     static int foodQuantity = 0;                                           // 먹이 아이템 수량 담긴 변수
     static int foodPrice = 0;                                              // 먹이 가격
-    /*
-    static int[] interiorPrice_A = new int[] { 100, 200, 200, 200 };      // 
-    static int interiorType = 100;                                         
-    static int interiorQuantity = 0;                                       
-    static int interioPrice = 0;
-    */
+    string[] explanation_A = new string[] { "포만도 10", "포만도 20", "포만도 30", "포만도 100" };
     static private int currentIndex1 = 0;
     static private int currentIndex2 = 1;
     static private int currentIndex3 = 2;
@@ -40,8 +35,9 @@ public class Shop : MonoBehaviour
     public TMP_Text _Price_count;                                           
     public TMP_Text _Quantity_count;
     public TMP_Text _Purchase_Food_Name_TMP;
-
-
+    public TMP_Text _shop_food_L_TMP;
+    public TMP_Text _shop_food_C_TMP;
+    public TMP_Text _shop_food_R_TMP;
 
     // 메인에서 상점 들어가는 버튼
     public void Main_Shop_Btn()
@@ -80,6 +76,7 @@ public class Shop : MonoBehaviour
     // 먹이탭에서 먹이 넘긴는 버튼
     public void Next_Btn()
     {
+
         GameManager._instance.soundManager.ChangeAndPlaySfx(0); // 추가
         currentIndex1++;
         if (currentIndex1 >= food_sprites.Length)
@@ -87,13 +84,15 @@ public class Shop : MonoBehaviour
             currentIndex1 = 0;
         }
         Chang_food_image_L.sprite = food_sprites[currentIndex1];
-
+        _shop_food_L_TMP.text = explanation_A[currentIndex1];
+        
         currentIndex2++;
         if (currentIndex2 >= food_sprites.Length)
         {
             currentIndex2 = 0;
         }
         Chang_food_image_C.sprite = food_sprites[currentIndex2];
+        _shop_food_C_TMP.text = explanation_A[currentIndex2];
 
         currentIndex3++;
         if (currentIndex3 >= food_sprites.Length)
@@ -101,6 +100,7 @@ public class Shop : MonoBehaviour
             currentIndex3 = 0;
         }
         Chang_food_image_R.sprite = food_sprites[currentIndex3];
+        _shop_food_R_TMP.text = explanation_A[currentIndex3];
     }
     //왼쪽 첫번째 먹이 버튼
     public void Shop_food_L()

@@ -108,6 +108,7 @@ public class UIManager : MonoBehaviour
     public bool isPopUp;
     //public bool isSetToy;
     public bool isToyBoxOn;
+    public bool isHelp;
     
     // ==============================================================================================================
 
@@ -156,7 +157,7 @@ public class UIManager : MonoBehaviour
         {
             case 0:
                 helpRoomScene.SetActive(true);
-                isPopUp = true;
+                isHelp = true;
                 break;
             case 1:
                 helpLRGameScene.SetActive(true);
@@ -174,7 +175,7 @@ public class UIManager : MonoBehaviour
         {
             case 0:
                 helpRoomScene.SetActive(false);
-                isPopUp = false;
+                isHelp = false;
                 break;
             case 1:
                 helpLRGameScene.SetActive(false);

@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
         uiManager.feedFilledImage.fillAmount = (float)feedAmount / 100;
         
         // 키우기가 시작됐을 때(도깨비 장난감을 놓은 순간) 쿨다운 시작
-        if(!isToyTime || isLvUp)
+        if(!isToyTime || isLvUp || uiManager.isHelp)
             return;
         if (isGrowStart)
         {
